@@ -5,3 +5,8 @@
  * Author: Brook Mao
  * Created: December 30, 2023
  */
+
+session_start();
+session_destroy();
+header("Location: index.php");
+exit;
