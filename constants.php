@@ -27,3 +27,7 @@ const PROFILE_LNAME_COLNAME = "last_name";
 const PROFILE_EMAIL_COLNAME = "email";
 const PROFILE_HEADLINE_COLNAME = "headline";
 const PROFILE_SUMM_COLNAME = "summary";
+
+// $_POST keys
+const EMAIL_KEY = "email";
+const PSWD_KEY = "pass";
