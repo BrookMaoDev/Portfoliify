@@ -16,6 +16,8 @@ const INCORRECT_PSWD_MSG = "The email address or password is incorrect";
 // $_POST keys
 const LOGIN_KEY = "login";
 const CANCEL_KEY = "cancel";
+const EMAIL_KEY = "email";
+const PSWD_KEY = "pass";
 
 session_start();
 

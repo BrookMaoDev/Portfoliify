@@ -32,10 +32,8 @@ const PROFILE_EMAIL_COLNAME = "email";
 const PROFILE_HEADLINE_COLNAME = "headline";
 const PROFILE_SUMM_COLNAME = "summary";
 
-// $_POST and $_SESSION keys
+// $_SESSION keys
 const USER_ID_KEY = "user_id";
 const USER_NAME_KEY = "name";
-const EMAIL_KEY = "email";
-const PSWD_KEY = "pass";
 const ERROR_MSG_KEY = "error_msg";
 const SUCCESS_MSG_KEY = "success_msg";
