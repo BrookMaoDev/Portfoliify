@@ -10,12 +10,14 @@ require_once "constants.php";
 require_once "pdo.php";
 
 const MISSING_FIELD_MSG = "All fields are required";
-const BAD_EMAIL_MSG = "Invalid email address";
+const BAD_EMAIL_MSG = "Email address must contain @";
 const INCORRECT_PSWD_MSG = "The email address or password is incorrect";
 
 // $_POST keys
 const LOGIN_KEY = "login";
 const CANCEL_KEY = "cancel";
+
+// $_POST and $_SESSION keys
 const EMAIL_KEY = "email";
 const PSWD_KEY = "pass";
 
@@ -37,7 +39,7 @@ if (isset($_POST[LOGIN_KEY])) {
 }
 
 // User pressed login and data successfully validated on server side
-if (isset($_SESSION[EMAIL_KEY]) || isset($_SESSION[PSWD_KEY])) {
+if (isset($_SESSION[EMAIL_KEY]) && isset($_SESSION[PSWD_KEY])) {
     $user_info = getUsers($_SESSION[EMAIL_KEY], $_SESSION[PSWD_KEY], $db);
     if ($user_info === false) { // User does not exist
         unset($_SESSION[EMAIL_KEY]);
@@ -102,8 +104,8 @@ function getUsers(string $email, string $pswd, PDO $db): array|bool
     <?php
     if (isset($_SESSION[ERROR_MSG_KEY])) { // User bypassed browser side data validation but failed on the server side
         echo '<p style="color: red;">' . $_SESSION[ERROR_MSG_KEY] . '</p>';
+        unset($_SESSION[ERROR_MSG_KEY]);
     }
-    unset($_SESSION[ERROR_MSG_KEY]);
     ?>
     <form method="post">
         <div class="text-field">

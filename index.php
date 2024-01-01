@@ -99,6 +99,11 @@ function createLoggedInProfilesTable(array $profiles)
 <body>
     <h1>Brook Mao's Resume Registry App</h1>
     <?php
+    if (isset($_SESSION[SUCCESS_MSG_KEY])) {
+        echo "<p style='color: green;'>" . $_SESSION[SUCCESS_MSG_KEY] . "</p>";
+        unset($_SESSION[SUCCESS_MSG_KEY]);
+    }
+
     if (isset($_SESSION[USER_ID_KEY])) { // User is signed in
         echo "<a href='logout.php'>Logout</a>";
         createLoggedInProfilesTable(getProfiles($db));
