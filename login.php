@@ -79,7 +79,9 @@ function getUsers(string $email, string $pswd, PDO $db): array|bool
 {
     $hashed_pswd = hash(HASH_METHOD, SALT . $pswd);
 
-    $stmt = $db->prepare("SELECT " . USER_ID_COLNAME . ", " . USER_NAME_COLNAME . " FROM " . USERS_TABLE . " WHERE " . USER_EMAIL_COLNAME . " = :email AND " . USER_PSWD_COLNAME . " = :password");
+    $stmt = $db->prepare("SELECT " . USER_ID_COLNAME . ", " . USER_NAME_COLNAME
+        . " FROM " . USERS_TABLE . " WHERE "
+        . USER_EMAIL_COLNAME . " = :email AND " . USER_PSWD_COLNAME . " = :password");
     $stmt->execute(array(
         ":email" => $email,
         ":password" => $hashed_pswd
