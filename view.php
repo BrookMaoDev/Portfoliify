@@ -8,27 +8,18 @@
 
 require_once "pdo.php";
 require_once "constants.php";
+require_once "db_queries.php";
 
 const BAD_PROFILE_MSG = "Failed to retrieve profile";
 
-/**
- * Returns a profile with $profile_id from $db if such profile exists, false otherwise. 
- */
-function getProfile(PDO $db, int $profile_id): array|bool
-{
-    $stmt = $db->prepare("SELECT * FROM " . PROFILES_TABLE
-        . " WHERE " . PROFILE_ID_COLNAME . " = :profile_id");
-    $stmt->execute(array(":profile_id" => $profile_id));
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    return $row;
-}
-
+// PROFILE_ID_KEY in $_GET is invalid
 if (!isset($_GET[PROFILE_ID_KEY]) || !is_numeric($_GET[PROFILE_ID_KEY])) {
     die(BAD_PROFILE_MSG);
 }
 
 $profile = getProfile($db, (int)$_GET[PROFILE_ID_KEY]);
 
+// Profile with id in $_GET does not exist in our db
 if ($profile === false) {
     die(BAD_PROFILE_MSG);
 }

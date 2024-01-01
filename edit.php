@@ -8,6 +8,7 @@
 
 require_once "constants.php";
 require_once "pdo.php";
+require_once "db_queries.php";
 
 const MISSING_FIELD_MSG = "All fields are required";
 const BAD_EMAIL_MSG = "Email address must contain @";
@@ -35,17 +36,19 @@ if (isset($_POST[CANCEL_KEY])) {
     exit;
 }
 
+// User is not logged in
 if (!isset($_SESSION[USER_ID_KEY]) || !isset($_SESSION[USER_NAME_KEY])) {
     die(NOT_LOGGED_IN_MSG);
 }
 
+// PROFILE_ID_KEY in $_GET is invalid
 if (!isset($_GET[PROFILE_ID_KEY]) || !is_numeric($_GET[PROFILE_ID_KEY])) {
     die(BAD_PROFILE_MSG);
 }
 
 $profile = getProfile($db, $_GET[PROFILE_ID_KEY]);
 
-// Profile with id in $_GET does not exist
+// Profile with id in $_GET does not exist in our db
 if ($profile === false) {
     die(BAD_PROFILE_MSG);
 }
@@ -114,34 +117,6 @@ function validateProfileFields()
         header("Location: " . basename(__FILE__) . "?" . PROFILE_ID_KEY . "=" . $_GET[PROFILE_ID_KEY]);
         exit;
     }
-}
-
-function getProfile(PDO $db, int $profile_id): array|bool
-{
-    $stmt = $db->prepare("SELECT * FROM " . PROFILES_TABLE
-        . " WHERE " . PROFILE_ID_COLNAME . " = :profile_id");
-    $stmt->execute(array(":profile_id" => $profile_id));
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    return $row;
-}
-
-function editResume(PDO $db, int $profile_id, string $fname, string $lname, string $email, string $headline, string $summ)
-{
-    $stmt = $db->prepare("UPDATE profile SET "
-        . PROFILE_FNAME_COLNAME . " = :first_name, "
-        . PROFILE_LNAME_COLNAME . " = :last_name, "
-        . PROFILE_EMAIL_COLNAME . " = :email, "
-        . PROFILE_HEADLINE_COLNAME . " = :headline, "
-        . PROFILE_SUMM_COLNAME . " = :summary WHERE " . PROFILE_ID_KEY . " = :user_id");
-
-    $stmt->execute(array(
-        ":user_id" => $profile_id,
-        ":first_name" => $fname,
-        ":last_name" => $lname,
-        ":email" => $email,
-        ":headline" => $headline,
-        ":summary" => $summ,
-    ));
 }
 ?>
 

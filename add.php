@@ -27,6 +27,7 @@ const SUMM_KEY = "summary";
 
 session_start();
 
+// User is not logged in
 if (!isset($_SESSION[USER_ID_KEY]) || !isset($_SESSION[USER_NAME_KEY])) {
     die(NOT_LOGGED_IN_MSG);
 }
@@ -95,27 +96,6 @@ function validateProfileFields()
         header("Location: " . basename(__FILE__));
         exit;
     }
-}
-
-function insertResume(PDO $db, string $fname, string $lname, string $email, string $headline, string $summ)
-{
-    $stmt = $db->prepare("INSERT INTO profile ("
-        . PROFILE_USER_ID_COLNAME . ", "
-        . PROFILE_FNAME_COLNAME . ", "
-        . PROFILE_LNAME_COLNAME . ", "
-        . PROFILE_EMAIL_COLNAME . ", "
-        . PROFILE_HEADLINE_COLNAME . ", "
-        . PROFILE_SUMM_COLNAME . ")
-    VALUES (:user_id, :first_name, :last_name, :email, :headline, :summary)");
-
-    $stmt->execute(array(
-        ":user_id" => $_SESSION[USER_ID_KEY],
-        ":first_name" => $fname,
-        ":last_name" => $lname,
-        ":email" => $email,
-        ":headline" => $headline,
-        ":summary" => $summ,
-    ));
 }
 ?>
 
