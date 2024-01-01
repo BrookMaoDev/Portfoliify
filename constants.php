@@ -37,3 +37,6 @@ const USER_ID_KEY = "user_id";
 const USER_NAME_KEY = "name";
 const ERROR_MSG_KEY = "error_msg";
 const SUCCESS_MSG_KEY = "success_msg";
+
+// $_GET keys
+const PROFILE_ID_KEY = "profile_id";

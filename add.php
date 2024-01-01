@@ -157,7 +157,7 @@ function insertResume(PDO $db, string $fname, string $lname, string $email, stri
         </div>
         <div class="text-field">
             Summary<br>
-            <input type="text" name="<?= SUMM_KEY ?>">
+            <textarea name="<?= SUMM_KEY ?>" rows="10" cols="60"></textarea>
         </div>
         <input type="submit" name="<?= ADD_KEY ?>" value="Add">
         <input type="submit" name="<?= CANCEL_KEY ?>" value="Cancel">

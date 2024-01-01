@@ -30,7 +30,7 @@ function createProfileRow(array $profile)
     $name = $profile[PROFILE_FNAME_COLNAME] . " " . $profile[PROFILE_LNAME_COLNAME];
     $headline = $profile[PROFILE_HEADLINE_COLNAME];
     echo (
-        "<td>$name</td>
+        "<td><a href='view.php?" . PROFILE_ID_KEY . "=" . $profile[PROFILE_ID_COLNAME] . "'>$name</a></td>
         <td>$headline</td>");
 }
 
@@ -41,8 +41,8 @@ function createLoggedInProfileRow(array $profile)
     if ($_SESSION[USER_ID_KEY] == $profile[PROFILE_USER_ID_COLNAME]) {
         // The user made this profile. Hence, we give them actions.
         echo (
-            "<td>Edit</td>
-            <td>Delete</td>");
+            "<td><a href='edit.php?" . PROFILE_ID_KEY . "=" . $profile[PROFILE_ID_COLNAME] . "'>Edit</a></td>
+            <td><a href='delete.php?" . PROFILE_ID_KEY . "=" . $profile[PROFILE_ID_COLNAME] . "'>Delete</a></td>");
     } else {
         echo "<td colspan='2'>None</td>";
     }
