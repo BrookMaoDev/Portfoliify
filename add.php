@@ -12,6 +12,7 @@ require_once "pdo.php";
 const MISSING_FIELD_MSG = "All fields are required";
 const BAD_EMAIL_MSG = "Email address must contain @";
 const SUCCESS_MSG = "Profile added";
+const NOT_LOGGED_IN_MSG = "You are not logged in";
 
 // $_POST keys
 const ADD_KEY = "add";
@@ -27,11 +28,8 @@ const SUMM_KEY = "summary";
 session_start();
 
 if (!isset($_SESSION[USER_ID_KEY]) || !isset($_SESSION[USER_NAME_KEY])) {
-    die("You are not logged in");
+    die(NOT_LOGGED_IN_MSG);
 }
-
-$user_id = $_SESSION[USER_ID_KEY];
-$name = $_SESSION[USER_NAME_KEY];
 
 // User wants to leave page
 if (isset($_POST[CANCEL_KEY])) {
@@ -41,7 +39,7 @@ if (isset($_POST[CANCEL_KEY])) {
 
 // User wants to add a new entry
 if (isset($_POST[ADD_KEY])) {
-    validateFields(); // Server side validation. If valid, below code runs.
+    validateProfileFields(); // Server side validation. If valid, below code runs.
     $_SESSION[FNAME_KEY] = $_POST[FNAME_KEY];
     $_SESSION[LNAME_KEY] = $_POST[LNAME_KEY];
     $_SESSION[EMAIL_KEY] = $_POST[EMAIL_KEY];
@@ -73,8 +71,9 @@ if (isset($_SESSION[FNAME_KEY])) {
     exit;
 }
 
-function validateFields()
+function validateProfileFields()
 {
+    // $_POST data
     $fname = $_POST[FNAME_KEY];
     $lname = $_POST[LNAME_KEY];
     $email = $_POST[EMAIL_KEY];
@@ -131,7 +130,7 @@ function insertResume(PDO $db, string $fname, string $lname, string $email, stri
 </head>
 
 <body>
-    <h1>Adding Profile for <?= $name ?></h1>
+    <h1>Adding Profile for <?= $_SESSION[USER_NAME_KEY] ?></h1>
     <?php
     if (isset($_SESSION[ERROR_MSG_KEY])) {
         echo "<p style='color: red;'>" . $_SESSION[ERROR_MSG_KEY] . "</p>";

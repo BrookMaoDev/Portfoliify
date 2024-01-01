@@ -23,6 +23,10 @@ function getProfile(PDO $db, int $profile_id): array|bool
     return $row;
 }
 
+if (!isset($_GET[PROFILE_ID_KEY]) || !is_numeric($_GET[PROFILE_ID_KEY])) {
+    die(BAD_PROFILE_MSG);
+}
+
 $profile = getProfile($db, (int)$_GET[PROFILE_ID_KEY]);
 
 if ($profile === false) {
