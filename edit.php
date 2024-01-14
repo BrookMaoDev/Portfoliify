@@ -20,8 +20,8 @@ const EDIT_KEY = "edit";
 const CANCEL_KEY = "cancel";
 
 // $_POST and $_SESSION keys
-const FNAME_KEY = "fname";
-const LNAME_KEY = "lname";
+const FNAME_KEY = "first_name";
+const LNAME_KEY = "last_name";
 const EMAIL_KEY = "email";
 const HEADLINE_KEY = "headline";
 const SUMM_KEY = "summary";
@@ -141,7 +141,7 @@ function validateProfileFields()
             Summary<br>
             <textarea name="<?= SUMM_KEY ?>" rows="10" cols="60"><?= htmlentities($profile[PROFILE_SUMM_COLNAME]) ?></textarea>
         </div>
-        <input type="submit" name="<?= EDIT_KEY ?>" value="Edit">
+        <input type="submit" name="<?= EDIT_KEY ?>" value="Save">
         <input type="submit" name="<?= CANCEL_KEY ?>" value="Cancel">
     </form>
 </body>

@@ -8,7 +8,7 @@
 
 require_once "db_queries.php";
 
-const NOT_LOGGED_IN_MSG = "You are not logged in";
+const NOT_LOGGED_IN_MSG = "Not logged in";
 const BAD_PROFILE_MSG = "Failed to retrieve profile";
 const NOT_OWNER_OF_PROFILE_MSG = "You are not the owner of this profile";
 

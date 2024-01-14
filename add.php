@@ -20,8 +20,8 @@ const ADD_KEY = "add";
 const CANCEL_KEY = "cancel";
 
 // $_POST and $_SESSION keys
-const FNAME_KEY = "fname";
-const LNAME_KEY = "lname";
+const FNAME_KEY = "first_name";
+const LNAME_KEY = "last_name";
 const EMAIL_KEY = "email";
 const HEADLINE_KEY = "headline";
 const SUMM_KEY = "summary";
