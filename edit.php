@@ -131,7 +131,7 @@ function validateProfileFields()
 </head>
 
 <body>
-    <h1>Editing Profile for <?= $_SESSION[USER_NAME_KEY] ?></h1>
+    <h1>Editing Profile for <?= htmlentities($_SESSION[USER_NAME_KEY]) ?></h1>
     <?php
     if (isset($_SESSION[ERROR_MSG_KEY])) {
         echo "<p style='color: red;'>" . $_SESSION[ERROR_MSG_KEY] . "</p>";
@@ -141,23 +141,23 @@ function validateProfileFields()
     <form method="post">
         <div class="text-field">
             First Name<br>
-            <input type="text" name="<?= FNAME_KEY ?>" value="<?= $profile[PROFILE_FNAME_COLNAME] ?>">
+            <input type="text" name="<?= FNAME_KEY ?>" value="<?= htmlentities($profile[PROFILE_FNAME_COLNAME]) ?>">
         </div>
         <div class="text-field">
             Last Name<br>
-            <input type="text" name="<?= LNAME_KEY ?>" value="<?= $profile[PROFILE_LNAME_COLNAME] ?>">
+            <input type="text" name="<?= LNAME_KEY ?>" value="<?= htmlentities($profile[PROFILE_LNAME_COLNAME]) ?>">
         </div>
         <div class="text-field">
             Email<br>
-            <input type="text" name="<?= EMAIL_KEY ?>" value="<?= $profile[PROFILE_EMAIL_COLNAME] ?>">
+            <input type="text" name="<?= EMAIL_KEY ?>" value="<?= htmlentities($profile[PROFILE_EMAIL_COLNAME]) ?>">
         </div>
         <div class="text-field">
             Headline<br>
-            <input type="text" name="<?= HEADLINE_KEY ?>" value="<?= $profile[PROFILE_HEADLINE_COLNAME] ?>">
+            <input type="text" name="<?= HEADLINE_KEY ?>" value="<?= htmlentities($profile[PROFILE_HEADLINE_COLNAME]) ?>">
         </div>
         <div class="text-field">
             Summary<br>
-            <textarea name="<?= SUMM_KEY ?>" rows="10" cols="60"><?= $profile[PROFILE_SUMM_COLNAME] ?></textarea>
+            <textarea name="<?= SUMM_KEY ?>" rows="10" cols="60"><?= htmlentities($profile[PROFILE_SUMM_COLNAME]) ?></textarea>
         </div>
         <input type="submit" name="<?= EDIT_KEY ?>" value="Edit">
         <input type="submit" name="<?= CANCEL_KEY ?>" value="Cancel">

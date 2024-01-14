@@ -37,12 +37,12 @@ if ($profile === false) {
 
 <body>
     <h1>Profile Information</h1>
-    <h4>First Name: <span class="unbolded"><?= $profile[PROFILE_FNAME_COLNAME] ?></span></h4>
-    <h4>Last Name: <span class="unbolded"><?= $profile[PROFILE_LNAME_COLNAME] ?></span></h4>
-    <h4>Email: <span class="unbolded"><?= $profile[PROFILE_EMAIL_COLNAME] ?></span></h4>
-    <h4>Headline: <span class="unbolded"><?= $profile[PROFILE_HEADLINE_COLNAME] ?></span></h4>
+    <h4>First Name: <span class="unbolded"><?= htmlentities($profile[PROFILE_FNAME_COLNAME]) ?></span></h4>
+    <h4>Last Name: <span class="unbolded"><?= htmlentities($profile[PROFILE_LNAME_COLNAME]) ?></span></h4>
+    <h4>Email: <span class="unbolded"><?= htmlentities($profile[PROFILE_EMAIL_COLNAME]) ?></span></h4>
+    <h4>Headline: <span class="unbolded"><?= htmlentities($profile[PROFILE_HEADLINE_COLNAME]) ?></span></h4>
     <h4>Summary:</h4>
-    <p><?= $profile[PROFILE_SUMM_COLNAME] ?></p>
+    <p><?= htmlentities($profile[PROFILE_SUMM_COLNAME]) ?></p>
     <a href="index.php">Back</a>
 </body>
 

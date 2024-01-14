@@ -110,7 +110,7 @@ function validateProfileFields()
 </head>
 
 <body>
-    <h1>Adding Profile for <?= $_SESSION[USER_NAME_KEY] ?></h1>
+    <h1>Adding Profile for <?= htmlentities($_SESSION[USER_NAME_KEY]) ?></h1>
     <?php
     if (isset($_SESSION[ERROR_MSG_KEY])) {
         echo "<p style='color: red;'>" . $_SESSION[ERROR_MSG_KEY] . "</p>";
