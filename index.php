@@ -10,20 +10,9 @@
 
 require_once "constants.php";
 require_once "pdo.php";
+require_once "db_queries.php";
 
 session_start();
-
-function getProfiles(PDO $db): array
-{
-    $stmt = $db->prepare("SELECT * FROM " . PROFILES_TABLE);
-    $stmt->execute();
-    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    if (empty($rows)) {
-        return [];
-    }
-    return $rows;
-}
 
 function createProfileRow(array $profile)
 {

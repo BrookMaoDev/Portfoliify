@@ -8,11 +8,12 @@
 
 require_once "constants.php";
 require_once "pdo.php";
+require_once "db_queries.php";
+require_once "process_superglobals.php";
 
 const MISSING_FIELD_MSG = "All fields are required";
 const BAD_EMAIL_MSG = "Email address must contain @";
 const SUCCESS_MSG = "Profile added";
-const NOT_LOGGED_IN_MSG = "You are not logged in";
 
 // $_POST keys
 const ADD_KEY = "add";
@@ -27,16 +28,8 @@ const SUMM_KEY = "summary";
 
 session_start();
 
-// User is not logged in
-if (!isset($_SESSION[USER_ID_KEY]) || !isset($_SESSION[USER_NAME_KEY])) {
-    die(NOT_LOGGED_IN_MSG);
-}
-
-// User wants to leave page
-if (isset($_POST[CANCEL_KEY])) {
-    header("Location: index.php");
-    exit;
-}
+checkLoggedIn();
+checkUserHitCancel();
 
 // User wants to add a new entry
 if (isset($_POST[ADD_KEY])) {

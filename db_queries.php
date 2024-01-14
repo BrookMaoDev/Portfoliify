@@ -19,6 +19,21 @@ function getProfile(PDO $db, int $profile_id): array|bool
 }
 
 /**
+ * Returns all profiles from $db.
+ */
+function getProfiles(PDO $db): array
+{
+    $stmt = $db->prepare("SELECT * FROM " . PROFILES_TABLE);
+    $stmt->execute();
+    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if (empty($rows)) {
+        return [];
+    }
+    return $rows;
+}
+
+/**
  * Adds a new profile to $db.
  */
 function insertResume(PDO $db, string $fname, string $lname, string $email, string $headline, string $summ)
@@ -71,4 +86,23 @@ function removeResume(PDO $db, int $profile_id)
 {
     $stmt = $db->prepare("DELETE FROM " . PROFILES_TABLE . " WHERE " . PROFILE_ID_COLNAME . " = :profile_id");
     $stmt->execute(array(":profile_id" => $profile_id,));
+}
+
+/**
+ * Returns a user in $db with the given $email and $pswd if they exist.
+ */
+function getUsers(string $email, string $pswd, PDO $db): array|bool
+{
+    $hashed_pswd = hash(HASH_METHOD, SALT . $pswd);
+
+    $stmt = $db->prepare("SELECT " . USER_ID_COLNAME . ", " . USER_NAME_COLNAME
+        . " FROM " . USERS_TABLE . " WHERE "
+        . USER_EMAIL_COLNAME . " = :email AND " . USER_PSWD_COLNAME . " = :password");
+    $stmt->execute(array(
+        ":email" => $email,
+        ":password" => $hashed_pswd
+    ));
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $row;
 }

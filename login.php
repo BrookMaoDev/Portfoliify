@@ -8,6 +8,8 @@
 
 require_once "constants.php";
 require_once "pdo.php";
+require_once "db_queries.php";
+require_once "process_superglobals.php";
 
 const MISSING_FIELD_MSG = "All fields are required";
 const BAD_EMAIL_MSG = "Email address must contain @";
@@ -23,11 +25,7 @@ const PSWD_KEY = "pass";
 
 session_start();
 
-// User wants to leave page
-if (isset($_POST[CANCEL_KEY])) {
-    header("Location: index.php");
-    exit;
-}
+checkUserHitCancel();
 
 // User pressed login and data successfully validated on browser side
 if (isset($_POST[LOGIN_KEY])) {
@@ -71,26 +69,6 @@ function validateLoginInfoFormat()
         exit;
     }
 }
-
-/**
- * Returns a user in $db with the given $email and $pswd if they exist.
- */
-function getUsers(string $email, string $pswd, PDO $db): array|bool
-{
-    $hashed_pswd = hash(HASH_METHOD, SALT . $pswd);
-
-    $stmt = $db->prepare("SELECT " . USER_ID_COLNAME . ", " . USER_NAME_COLNAME
-        . " FROM " . USERS_TABLE . " WHERE "
-        . USER_EMAIL_COLNAME . " = :email AND " . USER_PSWD_COLNAME . " = :password");
-    $stmt->execute(array(
-        ":email" => $email,
-        ":password" => $hashed_pswd
-    ));
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    return $row;
-}
-
 ?>
 
 <html>

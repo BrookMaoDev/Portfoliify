@@ -9,20 +9,11 @@
 require_once "pdo.php";
 require_once "constants.php";
 require_once "db_queries.php";
+require_once "process_superglobals.php";
 
-const BAD_PROFILE_MSG = "Failed to retrieve profile";
+checkProfileGet();
 
-// PROFILE_ID_KEY in $_GET is invalid
-if (!isset($_GET[PROFILE_ID_KEY]) || !is_numeric($_GET[PROFILE_ID_KEY])) {
-    die(BAD_PROFILE_MSG);
-}
-
-$profile = getProfile($db, (int)$_GET[PROFILE_ID_KEY]);
-
-// Profile with id in $_GET does not exist in our db
-if ($profile === false) {
-    die(BAD_PROFILE_MSG);
-}
+$profile = requireProfile($db, (int)$_GET[PROFILE_ID_KEY]);
 ?>
 
 <!DOCTYPE html>
