@@ -17,3 +17,15 @@ th {
 .unbolded {
     font-weight: normal;
 }
+
+/* Refers to the containers each representing a single position. */
+.position {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* Refers to the container which contains multiple positions. */
+#positions {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

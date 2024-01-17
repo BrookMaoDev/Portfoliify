@@ -100,6 +100,8 @@ function validateProfileFields()
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brook Mao's Resume Registry App</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="positions.js"></script>
 </head>
 
 <body>
@@ -131,6 +133,8 @@ function validateProfileFields()
             Summary<br>
             <textarea name="<?= SUMM_KEY ?>" rows="10" cols="60"></textarea>
         </div>
+        <input type="button" id="addPos" value="Add New Position">
+        <div id="positions"></div>
         <input type="submit" name="<?= ADD_KEY ?>" value="Add">
         <input type="submit" name="<?= CANCEL_KEY ?>" value="Cancel">
     </form>
