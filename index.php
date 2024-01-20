@@ -42,7 +42,7 @@ function createProfilesTable(array $profiles)
     echo (
         "<table class='custom-table'>
             <tr>
-                <th>Name</th>
+                <th class='_25percentwidth'>Name</th>
                 <th>Headline</th>
             </tr>");
 
@@ -60,9 +60,9 @@ function createLoggedInProfilesTable(array $profiles)
     echo (
         "<table class='custom-table'>
             <tr>
-                <th>Name</th>
+                <th class='_25percentwidth'>Name</th>
                 <th>Headline</th>
-                <th colspan='2'>Action</th>
+                <th class='_25percentwidth' colspan='2'>Action</th>
             </tr>");
 
     foreach ($profiles as $profile) {
