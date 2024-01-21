@@ -143,7 +143,7 @@ function validateProfileFields()
             Summary<br>
             <textarea name="<?= SUMM_KEY ?>" rows="10" cols="60"></textarea>
         </div>
-        <input type="button" id="addPos" value="Add New Position">
+        <input type="button" id="addPos" value="New Position">
         <div id="positions"></div>
         <input type="submit" name="<?= ADD_KEY ?>" value="Add">
         <input type="submit" name="<?= CANCEL_KEY ?>" value="Cancel">
