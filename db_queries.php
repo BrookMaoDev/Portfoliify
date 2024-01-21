@@ -6,6 +6,10 @@
  * Created: January 1, 2024
  */
 
+// Based on validatePosition() in validations.php. Update accordingly.
+const POSITION_ARRAY_YEAR_INDEX = 0;
+const POSITION_ARRAY_DESC_INDEX = 1;
+
 /**
  * Returns a profile with $profile_id from $db if such profile exists, false otherwise. 
  */
@@ -34,10 +38,31 @@ function getProfiles(PDO $db): array
 }
 
 /**
+ * Returns all positions from $db with foreign key $profile_id
+ * ordered by POSITION_RANK_COLNAME in ascending order.
+ */
+function getPositions(PDO $db, int $profile_id): array
+{
+    $stmt = $db->prepare("SELECT * FROM " . POSITIONS_TABLE .
+        " WHERE " . POSITION_PROFILE_ID_COLNAME . " = :profile_id ORDER BY "
+        . POSITION_RANK_COLNAME . " ASC");
+    $stmt->execute(array(":profile_id" => $profile_id));
+    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $rows;
+}
+
+/**
  * Adds a new profile to $db.
  */
-function insertResume(PDO $db, string $fname, string $lname, string $email, string $headline, string $summ)
-{
+function insertResume(
+    PDO $db,
+    string $fname,
+    string $lname,
+    string $email,
+    string $headline,
+    string $summ,
+    array $positions
+) {
     $stmt = $db->prepare("INSERT INTO " . PROFILES_TABLE . " ("
         . PROFILE_USER_ID_COLNAME . ", "
         . PROFILE_FNAME_COLNAME . ", "
@@ -55,12 +80,50 @@ function insertResume(PDO $db, string $fname, string $lname, string $email, stri
         ":headline" => $headline,
         ":summary" => $summ,
     ));
+
+    insertPositions($db, $positions, $db->lastInsertId());
+}
+
+/**
+ * Adds the positions from $positions into $db using $profile_id as the foreign key.
+ */
+function insertPositions(PDO $db, array $positions, int $profile_id)
+{
+    for ($i = 0; $i < sizeof($positions); $i++) {
+        $stmt = $db->prepare("INSERT INTO " . POSITIONS_TABLE . "
+        (" . POSITION_PROFILE_ID_COLNAME . ",
+        " . POSITION_RANK_COLNAME . ",
+        " . POSITION_YEAR_COLNAME . ",
+        " . POSITION_DESCRIPTION_COLNAME . ")
+        VALUES (:profile_id, :rank, :year, :description)");
+
+        $stmt->execute(array(
+            ":profile_id" => $profile_id,
+            ":rank" => $i,
+            ":year" => $positions[$i][POSITION_ARRAY_YEAR_INDEX],
+            ":description" => $positions[$i][POSITION_ARRAY_DESC_INDEX]
+        ));
+    }
+}
+
+/**
+ * Deletes positions from $db where POSITION_PROFILE_ID_COLNAME
+ * (foreign key) is equal to $profile_id. In other words,
+ * removes all positions associated with the profile with profile_id.
+ */
+function removePositions(PDO $db, int $profile_id)
+{
+    $stmt = $db->prepare("DELETE FROM "
+        . POSITIONS_TABLE . " WHERE "
+        . POSITION_PROFILE_ID_COLNAME . " = :profile_id");
+
+    $stmt->execute(array(":profile_id" => $profile_id));
 }
 
 /**
  * Updates profile(s) with $profile_id from $db with new values.
  */
-function editResume(PDO $db, int $profile_id, string $fname, string $lname, string $email, string $headline, string $summ)
+function editResume(PDO $db, int $profile_id, string $fname, string $lname, string $email, string $headline, string $summ, array $positions)
 {
     $stmt = $db->prepare("UPDATE " . PROFILES_TABLE . " SET "
         . PROFILE_FNAME_COLNAME . " = :first_name, "
@@ -77,6 +140,10 @@ function editResume(PDO $db, int $profile_id, string $fname, string $lname, stri
         ":headline" => $headline,
         ":summary" => $summ,
     ));
+
+    // Updating the old positions by removing the old positions and inserting the new ones.
+    removePositions($db, $profile_id);
+    insertPositions($db, $positions, $profile_id);
 }
 
 /**

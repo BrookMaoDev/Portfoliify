@@ -10,6 +10,7 @@ require_once "constants.php";
 require_once "pdo.php";
 require_once "db_queries.php";
 require_once "process_superglobals.php";
+require_once "validations.php";
 
 const MISSING_FIELD_MSG = "All fields are required";
 const BAD_EMAIL_MSG = "Email address must contain @";
@@ -25,6 +26,7 @@ const LNAME_KEY = "last_name";
 const EMAIL_KEY = "email";
 const HEADLINE_KEY = "headline";
 const SUMM_KEY = "summary";
+const POSITIONS_ARRAY_KEY = "positions";
 
 session_start();
 
@@ -34,11 +36,18 @@ checkUserHitCancel();
 // User wants to add a new entry
 if (isset($_POST[ADD_KEY])) {
     validateProfileFields(); // Server side validation. If valid, below code runs.
+    $positionsArray = validatePositions();
+    if (gettype($positionsArray) === "string") { // Then it's an error message.
+        $_SESSION[ERROR_MSG_KEY] = $positionsArray;
+        header("Location: " . basename(__FILE__));
+        exit;
+    }
     $_SESSION[FNAME_KEY] = $_POST[FNAME_KEY];
     $_SESSION[LNAME_KEY] = $_POST[LNAME_KEY];
     $_SESSION[EMAIL_KEY] = $_POST[EMAIL_KEY];
     $_SESSION[HEADLINE_KEY] = $_POST[HEADLINE_KEY];
     $_SESSION[SUMM_KEY] = $_POST[SUMM_KEY];
+    $_SESSION[POSITIONS_ARRAY_KEY] = $positionsArray;
     header("Location: " . basename(__FILE__));
     exit;
 }
@@ -51,7 +60,8 @@ if (isset($_SESSION[FNAME_KEY])) {
         $_SESSION[LNAME_KEY],
         $_SESSION[EMAIL_KEY],
         $_SESSION[HEADLINE_KEY],
-        $_SESSION[SUMM_KEY]
+        $_SESSION[SUMM_KEY],
+        $_SESSION[POSITIONS_ARRAY_KEY]
     );
 
     unset($_SESSION[FNAME_KEY]);
@@ -100,13 +110,15 @@ function validateProfileFields()
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brook Mao's Resume Registry App</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="positions.js"></script>
 </head>
 
 <body>
     <h1>Adding Profile for <?= htmlentities($_SESSION[USER_NAME_KEY]) ?></h1>
     <?php
     if (isset($_SESSION[ERROR_MSG_KEY])) {
-        echo "<p style='color: red;'>" . $_SESSION[ERROR_MSG_KEY] . "</p>";
+        echo "<p style='color: red;'>" . $_SESSION[ERROR_MSG_KEY] . "</p>\n";
         unset($_SESSION[ERROR_MSG_KEY]);
     }
     ?>
@@ -131,6 +143,8 @@ function validateProfileFields()
             Summary<br>
             <textarea name="<?= SUMM_KEY ?>" rows="10" cols="60"></textarea>
         </div>
+        <input type="button" id="addPos" value="New Position">
+        <div id="positions"></div>
         <input type="submit" name="<?= ADD_KEY ?>" value="Add">
         <input type="submit" name="<?= CANCEL_KEY ?>" value="Cancel">
     </form>

@@ -16,6 +16,7 @@ const DB_NAME = "res_profile";
 // Tables
 const USERS_TABLE = "users";
 const PROFILES_TABLE = "profile";
+const POSITIONS_TABLE = "position";
 
 // Columns for USERS_TABLE
 const USER_ID_COLNAME = "user_id";
@@ -31,6 +32,13 @@ const PROFILE_LNAME_COLNAME = "last_name";
 const PROFILE_EMAIL_COLNAME = "email";
 const PROFILE_HEADLINE_COLNAME = "headline";
 const PROFILE_SUMM_COLNAME = "summary";
+
+// Columns for POSITIONS_TABLE
+const POSITION_ID_COLNAME = "position_id";
+const POSITION_PROFILE_ID_COLNAME = "profile_id";
+const POSITION_RANK_COLNAME = "rank";
+const POSITION_YEAR_COLNAME = "year";
+const POSITION_DESCRIPTION_COLNAME = "description";
 
 // $_SESSION keys
 const USER_ID_KEY = "user_id";

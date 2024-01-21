@@ -14,6 +14,34 @@ require_once "process_superglobals.php";
 checkProfileGet();
 
 $profile = requireProfile($db, (int)$_GET[PROFILE_ID_KEY]);
+$positions = getPositions($db, (int)$_GET[PROFILE_ID_KEY]);
+
+function createPositionRow($position)
+{
+    echo "<tr>";
+    $desc = $position[POSITION_DESCRIPTION_COLNAME];
+    $year = $position[POSITION_YEAR_COLNAME];
+    echo "<td>$desc</td>";
+    echo "<td>$year</td>";
+    echo "</tr>";
+}
+
+function createPositionsTable($positions)
+{
+    echo (
+        "<table class='custom-table'>
+        <tr>
+            <th>Description</th>
+            <th class='_25percentwidth'>Year</th>
+        </tr>"
+    );
+
+    foreach ($positions as $position) {
+        createPositionRow($position);
+    }
+
+    echo "</table>";
+}
 ?>
 
 <!DOCTYPE html>
@@ -28,12 +56,14 @@ $profile = requireProfile($db, (int)$_GET[PROFILE_ID_KEY]);
 
 <body>
     <h1>Profile Information</h1>
-    <h4>First Name: <span class="unbolded"><?= htmlentities($profile[PROFILE_FNAME_COLNAME]) ?></span></h4>
-    <h4>Last Name: <span class="unbolded"><?= htmlentities($profile[PROFILE_LNAME_COLNAME]) ?></span></h4>
-    <h4>Email: <span class="unbolded"><?= htmlentities($profile[PROFILE_EMAIL_COLNAME]) ?></span></h4>
-    <h4>Headline: <span class="unbolded"><?= htmlentities($profile[PROFILE_HEADLINE_COLNAME]) ?></span></h4>
+    <h4 class="_25percentwidth">First Name: <span class="unbolded"><?= htmlentities($profile[PROFILE_FNAME_COLNAME]) ?></span></h4>
+    <h4 class="_25percentwidth">Last Name: <span class="unbolded"><?= htmlentities($profile[PROFILE_LNAME_COLNAME]) ?></span></h4>
+    <h4 class="_25percentwidth">Email: <span class="unbolded"><?= htmlentities($profile[PROFILE_EMAIL_COLNAME]) ?></span></h4>
+    <h4 class="_25percentwidth">Headline: <span class="unbolded"><?= htmlentities($profile[PROFILE_HEADLINE_COLNAME]) ?></span></h4>
     <h4>Summary:</h4>
     <p><?= htmlentities($profile[PROFILE_SUMM_COLNAME]) ?></p>
+    <h4>Positions:</h4>
+    <?php createPositionsTable($positions); ?>
     <a href="index.php">Back</a>
 </body>
 

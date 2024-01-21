@@ -10,6 +10,7 @@ require_once "constants.php";
 require_once "pdo.php";
 require_once "db_queries.php";
 require_once "process_superglobals.php";
+require_once "validations.php";
 
 const MISSING_FIELD_MSG = "All fields are required";
 const BAD_EMAIL_MSG = "Email address must contain @";
@@ -25,6 +26,7 @@ const LNAME_KEY = "last_name";
 const EMAIL_KEY = "email";
 const HEADLINE_KEY = "headline";
 const SUMM_KEY = "summary";
+const POSITIONS_ARRAY_KEY = "positions";
 
 session_start();
 
@@ -43,11 +45,18 @@ if ($profile[PROFILE_USER_ID_COLNAME] !== $_SESSION[USER_ID_KEY]) {
 // User wants to edit the entry
 if (isset($_POST[EDIT_KEY])) {
     validateProfileFields(); // Server side validation. If valid, below code runs.
+    $positionsArray = validatePositions();
+    if (gettype($positionsArray) === "string") { // Then it's an error message.
+        $_SESSION[ERROR_MSG_KEY] = $positionsArray;
+        header("Location: " . basename(__FILE__) . "?" . PROFILE_ID_KEY . "=" . $_GET[PROFILE_ID_KEY]);
+        exit;
+    }
     $_SESSION[FNAME_KEY] = $_POST[FNAME_KEY];
     $_SESSION[LNAME_KEY] = $_POST[LNAME_KEY];
     $_SESSION[EMAIL_KEY] = $_POST[EMAIL_KEY];
     $_SESSION[HEADLINE_KEY] = $_POST[HEADLINE_KEY];
     $_SESSION[SUMM_KEY] = $_POST[SUMM_KEY];
+    $_SESSION[POSITIONS_ARRAY_KEY] = $positionsArray;
     header("Location: " . basename(__FILE__) . "?" . PROFILE_ID_KEY . "=" . $_GET[PROFILE_ID_KEY]);
     exit;
 }
@@ -61,7 +70,8 @@ if (isset($_SESSION[FNAME_KEY])) {
         $_SESSION[LNAME_KEY],
         $_SESSION[EMAIL_KEY],
         $_SESSION[HEADLINE_KEY],
-        $_SESSION[SUMM_KEY]
+        $_SESSION[SUMM_KEY],
+        $_SESSION[POSITIONS_ARRAY_KEY]
     );
 
     unset($_SESSION[FNAME_KEY]);
@@ -100,6 +110,25 @@ function validateProfileFields()
         exit;
     }
 }
+
+function loadSavedPositions($positions)
+{
+    for ($i = 0; $i < sizeof($positions); $i++) {
+        $elementIdNum = $i + 1; // This is because in positions.js,
+        // we made the numbers at the end of each element ID start at 1.
+        $savedYear = $positions[$i][POSITION_YEAR_COLNAME];
+        $savedDesc = $positions[$i][POSITION_DESCRIPTION_COLNAME];
+        echo (
+            "<div id='position$elementIdNum' class='position'>
+            <p>
+                Year: <input type='text' name='year$elementIdNum' value='$savedYear'>
+                <input type='button' value='Remove Position' onclick=\"removePosition('position$elementIdNum')\">
+            </p>
+            <textarea name='desc$elementIdNum' cols='60' rows='10'>$savedDesc</textarea>
+            </div>"
+        );
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -110,6 +139,8 @@ function validateProfileFields()
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brook Mao's Resume Registry App</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="positions.js"></script>
 </head>
 
 <body>
@@ -140,6 +171,10 @@ function validateProfileFields()
         <div class="text-field">
             Summary<br>
             <textarea name="<?= SUMM_KEY ?>" rows="10" cols="60"><?= htmlentities($profile[PROFILE_SUMM_COLNAME]) ?></textarea>
+        </div>
+        <input type="button" id="addPos" value="Add New Position">
+        <div id="positions">
+            <?php loadSavedPositions(getPositions($db, $_GET[PROFILE_ID_KEY])) ?>
         </div>
         <input type="submit" name="<?= EDIT_KEY ?>" value="Save">
         <input type="submit" name="<?= CANCEL_KEY ?>" value="Cancel">
