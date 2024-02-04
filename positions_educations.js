@@ -12,12 +12,19 @@ const POSITIONS_DIV_CONTAINER_ID = "#positions";
 const EDUCATIONS_ADD_BUTTON_ID = "#addEdu";
 const EDUCATIONS_DIV_CONTAINER_ID = "#educations";
 
+const SCHOOL_CLASS = "school";
+
 let numPositions;
 let numEducations;
 
 $(document).ready(function () {
     numPositions = getNumPositions();
     numEducations = getNumEducations();
+
+    $(`.${SCHOOL_CLASS}`).autocomplete({
+        source: "school_autocomplete.php",
+    });
+
     $(POSITIONS_ADD_BUTTON_ID).click(addPosition);
     $(EDUCATIONS_ADD_BUTTON_ID).click(addEducation);
 });
@@ -45,9 +52,12 @@ addEducation = function (event) {
             Year: <input type="text" name="eduyear${numEducations}">
             <input type="button" value="Remove Education" onclick="removeEducation('education${numEducations}')">
         </p>
-        School: <input type="text" name="school${numEducations}">
+        School: <input type="text" name="school${numEducations}" class="${SCHOOL_CLASS}">
         </div>`
     );
+    $(`.${SCHOOL_CLASS}`).autocomplete({
+        source: "school_autocomplete.php",
+    });
 };
 
 /**

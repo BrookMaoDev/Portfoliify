@@ -60,3 +60,4 @@ const SUCCESS_MSG_KEY = "success_msg";
 
 // $_GET keys
 const PROFILE_ID_KEY = "profile_id";
+const LOOKAHEAD_TERM_KEY = "term";
