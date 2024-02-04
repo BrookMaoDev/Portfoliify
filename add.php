@@ -27,6 +27,7 @@ const EMAIL_KEY = "email";
 const HEADLINE_KEY = "headline";
 const SUMM_KEY = "summary";
 const POSITIONS_ARRAY_KEY = "positions";
+const EDUCATIONS_ARRAY_KEY = "educations";
 
 session_start();
 
@@ -37,8 +38,13 @@ checkUserHitCancel();
 if (isset($_POST[ADD_KEY])) {
     validateProfileFields(); // Server side validation. If valid, below code runs.
     $positionsArray = validatePositions();
+    $educationsArray = validateEducations();
     if (gettype($positionsArray) === "string") { // Then it's an error message.
         $_SESSION[ERROR_MSG_KEY] = $positionsArray;
+        header("Location: " . basename(__FILE__));
+        exit;
+    } else if (gettype($educationsArray) === "string") {
+        $_SESSION[ERROR_MSG_KEY] = $educationsArray;
         header("Location: " . basename(__FILE__));
         exit;
     }
@@ -48,6 +54,7 @@ if (isset($_POST[ADD_KEY])) {
     $_SESSION[HEADLINE_KEY] = $_POST[HEADLINE_KEY];
     $_SESSION[SUMM_KEY] = $_POST[SUMM_KEY];
     $_SESSION[POSITIONS_ARRAY_KEY] = $positionsArray;
+    $_SESSION[EDUCATIONS_ARRAY_KEY] = $educationsArray;
     header("Location: " . basename(__FILE__));
     exit;
 }
@@ -61,7 +68,8 @@ if (isset($_SESSION[FNAME_KEY])) {
         $_SESSION[EMAIL_KEY],
         $_SESSION[HEADLINE_KEY],
         $_SESSION[SUMM_KEY],
-        $_SESSION[POSITIONS_ARRAY_KEY]
+        $_SESSION[POSITIONS_ARRAY_KEY],
+        $_SESSION[EDUCATIONS_ARRAY_KEY]
     );
 
     unset($_SESSION[FNAME_KEY]);
@@ -69,6 +77,8 @@ if (isset($_SESSION[FNAME_KEY])) {
     unset($_SESSION[EMAIL_KEY]);
     unset($_SESSION[HEADLINE_KEY]);
     unset($_SESSION[SUMM_KEY]);
+    unset($_SESSION[POSITIONS_ARRAY_KEY]);
+    unset($$_SESSION[EDUCATIONS_ARRAY_KEY]);
 
     $_SESSION[SUCCESS_MSG_KEY] = SUCCESS_MSG;
     header("Location: index.php");
@@ -111,7 +121,10 @@ function validateProfileFields()
     <title>Brook Mao's Resume Registry App</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="positions.js"></script>
+    <script src="positions_educations.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -143,6 +156,8 @@ function validateProfileFields()
             Summary<br>
             <textarea name="<?= SUMM_KEY ?>" rows="10" cols="60"></textarea>
         </div>
+        <input type="button" id="addEdu" value="New Education">
+        <div id="educations"></div>
         <input type="button" id="addPos" value="New Position">
         <div id="positions"></div>
         <input type="submit" name="<?= ADD_KEY ?>" value="Add">
