@@ -27,6 +27,7 @@ const EMAIL_KEY = "email";
 const HEADLINE_KEY = "headline";
 const SUMM_KEY = "summary";
 const POSITIONS_ARRAY_KEY = "positions";
+const EDUCATIONS_ARRAY_KEY = "educations";
 
 session_start();
 
@@ -46,8 +47,13 @@ if ($profile[PROFILE_USER_ID_COLNAME] !== $_SESSION[USER_ID_KEY]) {
 if (isset($_POST[EDIT_KEY])) {
     validateProfileFields(); // Server side validation. If valid, below code runs.
     $positionsArray = validatePositions();
+    $educationsArray = validateEducations();
     if (gettype($positionsArray) === "string") { // Then it's an error message.
         $_SESSION[ERROR_MSG_KEY] = $positionsArray;
+        header("Location: " . basename(__FILE__) . "?" . PROFILE_ID_KEY . "=" . $_GET[PROFILE_ID_KEY]);
+        exit;
+    } else if (gettype($educationsArray) === "string") {
+        $_SESSION[ERROR_MSG_KEY] = $educationsArray;
         header("Location: " . basename(__FILE__) . "?" . PROFILE_ID_KEY . "=" . $_GET[PROFILE_ID_KEY]);
         exit;
     }
@@ -57,6 +63,7 @@ if (isset($_POST[EDIT_KEY])) {
     $_SESSION[HEADLINE_KEY] = $_POST[HEADLINE_KEY];
     $_SESSION[SUMM_KEY] = $_POST[SUMM_KEY];
     $_SESSION[POSITIONS_ARRAY_KEY] = $positionsArray;
+    $_SESSION[EDUCATIONS_ARRAY_KEY] = $educationsArray;
     header("Location: " . basename(__FILE__) . "?" . PROFILE_ID_KEY . "=" . $_GET[PROFILE_ID_KEY]);
     exit;
 }
@@ -71,7 +78,8 @@ if (isset($_SESSION[FNAME_KEY])) {
         $_SESSION[EMAIL_KEY],
         $_SESSION[HEADLINE_KEY],
         $_SESSION[SUMM_KEY],
-        $_SESSION[POSITIONS_ARRAY_KEY]
+        $_SESSION[POSITIONS_ARRAY_KEY],
+        $_SESSION[EDUCATIONS_ARRAY_KEY]
     );
 
     unset($_SESSION[FNAME_KEY]);
@@ -79,6 +87,8 @@ if (isset($_SESSION[FNAME_KEY])) {
     unset($_SESSION[EMAIL_KEY]);
     unset($_SESSION[HEADLINE_KEY]);
     unset($_SESSION[SUMM_KEY]);
+    unset($_SESSION[POSITIONS_ARRAY_KEY]);
+    unset($_SESSION[EDUCATIONS_ARRAY_KEY]);
 
     $_SESSION[SUCCESS_MSG_KEY] = SUCCESS_MSG;
     header("Location: index.php");
@@ -116,8 +126,8 @@ function loadSavedPositions($positions)
     for ($i = 0; $i < sizeof($positions); $i++) {
         $elementIdNum = $i + 1; // This is because in positions.js,
         // we made the numbers at the end of each element ID start at 1.
-        $savedYear = $positions[$i][POSITION_YEAR_COLNAME];
-        $savedDesc = $positions[$i][POSITION_DESCRIPTION_COLNAME];
+        $savedYear = htmlentities($positions[$i][POSITION_YEAR_COLNAME]);
+        $savedDesc = htmlentities($positions[$i][POSITION_DESCRIPTION_COLNAME]);
         echo (
             "<div id='position$elementIdNum' class='position'>
             <p>
@@ -125,6 +135,24 @@ function loadSavedPositions($positions)
                 <input type='button' value='Remove Position' onclick=\"removePosition('position$elementIdNum')\">
             </p>
             <textarea name='desc$elementIdNum' cols='60' rows='10'>$savedDesc</textarea>
+            </div>"
+        );
+    }
+}
+
+function loadSavedEducations($educations)
+{
+    for ($i = 0; $i < sizeof($educations); $i++) {
+        $elementIdNum = $i + 1;
+        $savedYear = htmlentities($educations[$i][EDUCATION_YEAR_COLNAME]);
+        $savedSchool = htmlentities($educations[$i][EDUCATION_INSTITUTION_ID_COLNAME]);
+        echo (
+            "<div id='education$elementIdNum' class='education'>
+            <p>
+                Year: <input type='text' name='eduyear$elementIdNum' value='$savedYear'>
+                <input type='button' value='Remove Education' onclick=\"removeEducation('education$elementIdNum')\">
+            </p>
+            School: <input type='text' name='school$elementIdNum' value='$savedSchool'>
             </div>"
         );
     }
@@ -140,7 +168,7 @@ function loadSavedPositions($positions)
     <title>Brook Mao's Resume Registry App</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="positions.js"></script>
+    <script src="positions_educations.js"></script>
 </head>
 
 <body>
@@ -172,7 +200,11 @@ function loadSavedPositions($positions)
             Summary<br>
             <textarea name="<?= SUMM_KEY ?>" rows="10" cols="60"><?= htmlentities($profile[PROFILE_SUMM_COLNAME]) ?></textarea>
         </div>
-        <input type="button" id="addPos" value="Add New Position">
+        <input type="button" id="addEdu" value="New Education">
+        <div id="educations">
+            <?php loadSavedEducations(getEducations($db, $_GET[PROFILE_ID_KEY])) ?>
+        </div>
+        <input type="button" id="addPos" value="New Position">
         <div id="positions">
             <?php loadSavedPositions(getPositions($db, $_GET[PROFILE_ID_KEY])) ?>
         </div>

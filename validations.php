@@ -6,7 +6,7 @@
  * Created: January 18, 2024
  */
 
-const NOT_NUMERIC_MSG = "Position year must be numeric";
+const NOT_NUMERIC_MSG = "Year must be numeric";
 
 /**
  * Returns a 2D array of all positions if all inputs are valid, an error message otherwise.
@@ -40,4 +40,36 @@ function validatePosition(string $year, string $desc): string|array
     }
 
     return [$year, $desc];
+}
+
+function validateEducations(): string|array
+{
+    $allEducations = [];
+    $eduNum = 1;
+
+    while (isset($_POST["eduyear" . $eduNum]) && isset($_POST["school" . $eduNum])) {
+        $edu = validateEducation($_POST["eduyear" . $eduNum], $_POST["school" . $eduNum]);
+
+        if (gettype($edu) === "string") {
+            return $edu;
+        }
+
+        array_push($allEducations, $edu);
+        $eduNum++;
+    }
+
+    return $allEducations;
+}
+
+function validateEducation(string $year, string $school): string|array
+{
+    if (strlen($year) === 0 || strlen($school) === 0) {
+        return MISSING_FIELD_MSG; // Defined in the file using this file.
+    }
+
+    if (!is_numeric($year)) {
+        return NOT_NUMERIC_MSG;
+    }
+
+    return [$year, $school];
 }

@@ -15,6 +15,7 @@ checkProfileGet();
 
 $profile = requireProfile($db, (int)$_GET[PROFILE_ID_KEY]);
 $positions = getPositions($db, (int)$_GET[PROFILE_ID_KEY]);
+$educations = getEducations($db, (int)$_GET[PROFILE_ID_KEY]);
 
 function createPositionRow($position)
 {
@@ -42,6 +43,33 @@ function createPositionsTable($positions)
 
     echo "</table>";
 }
+
+function createEducationRow($education)
+{
+    echo "<tr>";
+    $school_name = $education[EDUCATION_INSTITUTION_ID_COLNAME];
+    $year = $education[EDUCATION_YEAR_COLNAME];
+    echo "<td>$school_name</td>";
+    echo "<td>$year</td>";
+    echo "</tr>";
+}
+
+function createEducationsTable($educations)
+{
+    echo (
+        "<table class='custom-table'>
+        <tr>
+            <th>School</th>
+            <th>Year</th>
+        </tr>"
+    );
+
+    foreach ($educations as $education) {
+        createEducationRow($education);
+    }
+
+    echo "</table>";
+}
 ?>
 
 <!DOCTYPE html>
@@ -64,6 +92,8 @@ function createPositionsTable($positions)
     <p><?= htmlentities($profile[PROFILE_SUMM_COLNAME]) ?></p>
     <h4>Positions:</h4>
     <?php createPositionsTable($positions); ?>
+    <h4>Education:</h4>
+    <?php createEducationsTable($educations); ?>
     <a href="index.php">Back</a>
 </body>
 

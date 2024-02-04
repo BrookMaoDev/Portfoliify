@@ -9,11 +9,17 @@
 const POSITIONS_ADD_BUTTON_ID = "#addPos";
 const POSITIONS_DIV_CONTAINER_ID = "#positions";
 
+const EDUCATIONS_ADD_BUTTON_ID = "#addEdu";
+const EDUCATIONS_DIV_CONTAINER_ID = "#educations";
+
 let numPositions;
+let numEducations;
 
 $(document).ready(function () {
     numPositions = getNumPositions();
+    numEducations = getNumEducations();
     $(POSITIONS_ADD_BUTTON_ID).click(addPosition);
+    $(EDUCATIONS_ADD_BUTTON_ID).click(addEducation);
 });
 
 addPosition = function (event) {
@@ -30,6 +36,20 @@ addPosition = function (event) {
     );
 };
 
+addEducation = function (event) {
+    event.preventDefault();
+    numEducations++;
+    $(EDUCATIONS_DIV_CONTAINER_ID).append(
+        `<div id="education${numEducations}" class="education">
+        <p>
+            Year: <input type="text" name="eduyear${numEducations}">
+            <input type="button" value="Remove Education" onclick="removeEducation('education${numEducations}')">
+        </p>
+        School: <input type="text" name="school${numEducations}">
+        </div>`
+    );
+};
+
 /**
  *
  * @returns {number} The number of positions already on the document
@@ -38,6 +58,11 @@ addPosition = function (event) {
 function getNumPositions() {
     let matchingPositions = document.querySelectorAll(".position");
     return matchingPositions.length;
+}
+
+function getNumEducations() {
+    let matchingElements = document.querySelectorAll(".education");
+    return matchingElements.length;
 }
 
 /**
@@ -65,6 +90,27 @@ function shiftPositions(position_id) {
         $(`[onclick="removePosition('position${idNum}')"]:first`).attr(
             "onclick",
             `removePosition('position${idNum - 1}')`
+        );
+        idNum++;
+    }
+}
+
+function removeEducation(education_id) {
+    $(`#${education_id}`).remove();
+    numEducations--;
+    shiftEducations(education_id);
+}
+
+function shiftEducations(education_id) {
+    idNum = getTrailingNum(education_id) + 1;
+    while ($(`#education${idNum}`).length) {
+        // Element with id idNum exists.
+        $(`#education${idNum}`).attr("id", `education${idNum - 1}`);
+        $(`[name=eduyear${idNum}]:first`).attr("name", `eduyear${idNum - 1}`);
+        $(`[name=school${idNum}]:first`).attr("name", `school${idNum - 1}`);
+        $(`[onclick="removeEducation('education${idNum}')"]:first`).attr(
+            "onclick",
+            `removeEducation('education${idNum - 1}')`
         );
         idNum++;
     }
