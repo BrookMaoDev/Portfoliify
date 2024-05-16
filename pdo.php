@@ -8,12 +8,13 @@
 
 require_once "constants.php";
 
-$host = "localhost";
+$host = $_ENV["MARIADB_HOST"];
 $dbname = DB_NAME;
-$username = "root";
+$username = $_ENV["MARIADB_USERNAME"];
+$password = $_ENV["MARIADB_ROOT_PASSWORD"];
 
 try {
-    $db = new PDO("mysql:host=$host;dbname=$dbname", $username);
+    $db = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     echo $e->getMessage();

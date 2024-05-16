@@ -17,15 +17,15 @@ const EMAIL_ID = "email";
 const PSWD_ID = "pswd";
 
 function validateLoginInfoFormat() {
-    let email = document.getElementById(EMAIL_ID).value;
-    let pswd = document.getElementById(PSWD_ID).value;
+  let email = document.getElementById(EMAIL_ID).value;
+  let pswd = document.getElementById(PSWD_ID).value;
 
-    if (email.length === 0 || pswd.length === 0) {
-        alert(MISSING_FIELD_MSG);
-        return false;
-    } else if (email.indexOf("@") === -1) {
-        alert(BAD_EMAIL_MSG);
-        return false;
-    }
-    return true;
+  if (email.length === 0 || pswd.length === 0) {
+    alert(MISSING_FIELD_MSG);
+    return false;
+  } else if (email.indexOf("@") === -1) {
+    alert(BAD_EMAIL_MSG);
+    return false;
+  }
+  return true;
 }

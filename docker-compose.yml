@@ -1,0 +1,17 @@
+version: 'latest'
+
+services:
+  app:
+    build: .
+    ports:
+      - "80:80"
+    environment:
+      MARIADB_HOST: "db"
+      MARIADB_USERNAME: "root"
+      MARIADB_ROOT_PASSWORD: "password"
+  db:
+    image: mariadb:10.4.32
+    ports:
+      - "3306:3306"
+    environment:
+      MARIADB_ROOT_PASSWORD: "password"
