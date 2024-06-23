@@ -82,7 +82,7 @@ function createLoggedInProfilesTable(array $profiles)
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brook Mao's Resume Registry App</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./static/styles.css">
 </head>
 
 <body>

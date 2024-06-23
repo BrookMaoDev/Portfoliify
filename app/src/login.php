@@ -75,8 +75,8 @@ function validateLoginInfoFormat()
 
 <head>
     <title>Brook Mao's Resume Registry App</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="login_validations.js"></script>
+    <link rel="stylesheet" href="./static/styles.css">
+    <script src="./static/login_validations.js"></script>
 </head>
 
 <body>

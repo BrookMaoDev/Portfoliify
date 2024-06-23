@@ -1,17 +1,19 @@
-version: 'latest'
+version: '3.8'
 
 services:
   app:
-    build: .
+    build: ./app
     ports:
       - "80:80"
     environment:
       MARIADB_HOST: "db"
       MARIADB_USERNAME: "root"
       MARIADB_ROOT_PASSWORD: "password"
+    restart: always
   db:
-    image: mariadb:10.4.32
+    build: ./database
     ports:
       - "3306:3306"
     environment:
       MARIADB_ROOT_PASSWORD: "password"
+    restart: always
