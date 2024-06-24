@@ -78,7 +78,7 @@ if (isset($_SESSION[FNAME_KEY])) {
     unset($_SESSION[HEADLINE_KEY]);
     unset($_SESSION[SUMM_KEY]);
     unset($_SESSION[POSITIONS_ARRAY_KEY]);
-    unset($$_SESSION[EDUCATIONS_ARRAY_KEY]);
+    unset($_SESSION[EDUCATIONS_ARRAY_KEY]);
 
     $_SESSION[SUCCESS_MSG_KEY] = SUCCESS_MSG;
     header("Location: index.php");
@@ -122,6 +122,7 @@ function validateProfileFields()
     <link rel="stylesheet" href="./static/styles.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="./static/positions_educations.js"></script>
+    <script src="./static/validations.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
@@ -138,29 +139,29 @@ function validateProfileFields()
     <form method="post">
         <div class="text-field">
             First Name<br>
-            <input type="text" name="<?= FNAME_KEY ?>">
+            <input type="text" name="<?= FNAME_KEY ?>" id="<?= FNAME_KEY ?>">
         </div>
         <div class="text-field">
             Last Name<br>
-            <input type="text" name="<?= LNAME_KEY ?>">
+            <input type="text" name="<?= LNAME_KEY ?>" id="<?= LNAME_KEY ?>">
         </div>
         <div class="text-field">
             Email<br>
-            <input type="text" name="<?= EMAIL_KEY ?>">
+            <input type="text" name="<?= EMAIL_KEY ?>" id="<?= EMAIL_KEY ?>">
         </div>
         <div class="text-field">
             Headline<br>
-            <input type="text" name="<?= HEADLINE_KEY ?>">
+            <input type="text" name="<?= HEADLINE_KEY ?>" id="<?= HEADLINE_KEY ?>">
         </div>
         <div class="text-field">
             Summary<br>
-            <textarea name="<?= SUMM_KEY ?>" rows="10" cols="60"></textarea>
+            <textarea name="<?= SUMM_KEY ?>" rows="10" cols="60" id="<?= SUMM_KEY ?>"></textarea>
         </div>
         <input type="button" id="addEdu" value="New Education">
         <div id="educations"></div>
         <input type="button" id="addPos" value="New Position">
         <div id="positions"></div>
-        <input type="submit" name="<?= ADD_KEY ?>" value="Add">
+        <input type="submit" name="<?= ADD_KEY ?>" value="Add" onclick="return validateProfileFields();">
         <input type="submit" name="<?= CANCEL_KEY ?>" value="Cancel">
     </form>
 </body>
