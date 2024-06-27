@@ -16,4 +16,9 @@ services:
       - "3306:3306"
     environment:
       MARIADB_ROOT_PASSWORD: "password"
+    volumes:
+      - db_data:/var/lib/mysql
     restart: always
+
+volumes:
+  db_data: {}

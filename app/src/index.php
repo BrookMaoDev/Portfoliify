@@ -25,24 +25,21 @@ function createProfileRow(array $profile)
 
 function createLoggedInProfileRow(array $profile)
 {
-    createProfileRow($profile);
-
     if ($_SESSION[USER_ID_KEY] == $profile[PROFILE_USER_ID_COLNAME]) {
-        // The user made this profile. Hence, we give them actions.
+        // The user made this profile.
+        createProfileRow($profile);
         echo (
             "<td><a href='edit.php?" . PROFILE_ID_KEY . "=" . $profile[PROFILE_ID_COLNAME] . "'>Edit</a></td>
             <td><a href='delete.php?" . PROFILE_ID_KEY . "=" . $profile[PROFILE_ID_COLNAME] . "'>Delete</a></td>");
-    } else {
-        echo "<td colspan='2'>None</td>";
     }
 }
 
 function createProfilesTable(array $profiles)
 {
     echo (
-        "<table class='custom-table'>
+        "<table class='table-hover'>
             <tr>
-                <th class='_25percentwidth'>Name</th>
+                <th>Name</th>
                 <th>Headline</th>
             </tr>");
 
@@ -58,11 +55,11 @@ function createProfilesTable(array $profiles)
 function createLoggedInProfilesTable(array $profiles)
 {
     echo (
-        "<table class='custom-table'>
+        "<table class='table-hover'>
             <tr>
-                <th class='_25percentwidth'>Name</th>
+                <th>Name</th>
                 <th>Headline</th>
-                <th class='_25percentwidth' colspan='2'>Action</th>
+                <th colspan='2'>Actions</th>
             </tr>");
 
     foreach ($profiles as $profile) {
@@ -81,13 +78,13 @@ function createLoggedInProfilesTable(array $profiles)
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brook Mao's Resume Registry App</title>
+    <title>Portfoliify</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="./static/styles.css">
 </head>
 
 <body>
-    <h1>Brook Mao's Resume Registry App</h1>
+    <h1>Portfoliify</h1>
     <?php
     if (isset($_SESSION[SUCCESS_MSG_KEY])) {
         echo "<p style='color: green;'>" . $_SESSION[SUCCESS_MSG_KEY] . "</p>";
@@ -95,11 +92,20 @@ function createLoggedInProfilesTable(array $profiles)
     }
 
     if (isset($_SESSION[USER_ID_KEY])) { // User is signed in
-        echo "<a href='logout.php'>Logout</a>";
         createLoggedInProfilesTable(getProfiles($db));
-        echo "<a href='add.php'>Add New Entry</a>";
+        echo (
+            '<div style="button-container">
+                <a href="add.php">Create New Profile</a>
+                <a href="logout.php">Logout</a>
+            </div>'
+        );
     } else {
-        echo "<a href='login.php'>Please log in</a>";
+        echo (
+            '<div style="button-container">
+                <a href="login.php">Login</a>
+                <a href="login.php">Sign Up</a>
+            </div>'
+        );
         createProfilesTable(getProfiles($db));
     }
     ?>

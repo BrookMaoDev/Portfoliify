@@ -30,10 +30,10 @@ function createPositionRow($position)
 function createPositionsTable($positions)
 {
     echo (
-        "<table class='custom-table'>
+        "<table class='table-hover'>
         <tr>
             <th>Description</th>
-            <th class='_25percentwidth'>Year</th>
+            <th>Year</th>
         </tr>"
     );
 
@@ -57,7 +57,7 @@ function createEducationRow($education)
 function createEducationsTable($educations)
 {
     echo (
-        "<table class='custom-table'>
+        "<table class='table-hover'>
         <tr>
             <th>School</th>
             <th>Year</th>
@@ -85,10 +85,10 @@ function createEducationsTable($educations)
 
 <body>
     <h1>Profile Information</h1>
-    <h4 class="_25percentwidth">First Name: <span class="unbolded"><?= htmlentities($profile[PROFILE_FNAME_COLNAME]) ?></span></h4>
-    <h4 class="_25percentwidth">Last Name: <span class="unbolded"><?= htmlentities($profile[PROFILE_LNAME_COLNAME]) ?></span></h4>
-    <h4 class="_25percentwidth">Email: <span class="unbolded"><?= htmlentities($profile[PROFILE_EMAIL_COLNAME]) ?></span></h4>
-    <h4 class="_25percentwidth">Headline: <span class="unbolded"><?= htmlentities($profile[PROFILE_HEADLINE_COLNAME]) ?></span></h4>
+    <h4>First Name: <span class="unbolded"><?= htmlentities($profile[PROFILE_FNAME_COLNAME]) ?></span></h4>
+    <h4>Last Name: <span class="unbolded"><?= htmlentities($profile[PROFILE_LNAME_COLNAME]) ?></span></h4>
+    <h4>Email: <span class="unbolded"><?= htmlentities($profile[PROFILE_EMAIL_COLNAME]) ?></span></h4>
+    <h4>Headline: <span class="unbolded"><?= htmlentities($profile[PROFILE_HEADLINE_COLNAME]) ?></span></h4>
     <h4>Summary:</h4>
     <p><?= htmlentities($profile[PROFILE_SUMM_COLNAME]) ?></p>
     <h4>Positions:</h4>
