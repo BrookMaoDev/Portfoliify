@@ -88,17 +88,17 @@ function validateLoginInfoFormat()
         unset($_SESSION[ERROR_MSG_KEY]);
     }
     ?>
-    <form method="post">
-        <div class="text-field">
+    <form method="post" class="form-group">
+        <div>
             Email<br>
-            <input type="text" name="<?= EMAIL_KEY ?>" id="email">
+            <input type="text" class="form-control" name="<?= EMAIL_KEY ?>" id="email">
         </div>
-        <div class="text-field">
+        <div>
             Password<br>
-            <input type="password" name="<?= PSWD_KEY ?>" id="pswd">
+            <input type="password" class="form-control" name="<?= PSWD_KEY ?>" id="pswd">
         </div>
-        <input type="submit" value="Log In" name="<?= LOGIN_KEY ?>" onclick="return validateLoginInfoFormat();">
-        <input type="submit" value="Cancel" name="<?= CANCEL_KEY ?>">
+        <input type="submit" class="btn btn-outline-success" value="Log In" name="<?= LOGIN_KEY ?>" onclick="return validateLoginInfoFormat();">
+        <input type="submit" class="btn btn-outline-danger" value="Cancel" name="<?= CANCEL_KEY ?>">
     </form>
 </body>
 

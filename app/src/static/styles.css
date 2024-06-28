@@ -6,6 +6,15 @@
     text-align: center;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+}
+
 html,
 body {
     width: 100vw;
@@ -35,4 +44,12 @@ td {
 
 .button-container {
     display: inline;
+}
+
+.small-spacer {
+    height: 2vh;
+}
+
+.spacer {
+    height: 4vh;
 }

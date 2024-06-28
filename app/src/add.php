@@ -138,32 +138,32 @@ function validateProfileFields()
     }
     ?>
     <form method="post">
-        <div class="text-field">
+        <div>
             First Name<br>
-            <input type="text" name="<?= FNAME_KEY ?>" id="<?= FNAME_KEY ?>">
+            <input type="text" class="form-control" name="<?= FNAME_KEY ?>" id="<?= FNAME_KEY ?>">
         </div>
-        <div class="text-field">
+        <div>
             Last Name<br>
-            <input type="text" name="<?= LNAME_KEY ?>" id="<?= LNAME_KEY ?>">
+            <input type="text" class="form-control" name="<?= LNAME_KEY ?>" id="<?= LNAME_KEY ?>">
         </div>
-        <div class="text-field">
+        <div>
             Email<br>
-            <input type="text" name="<?= EMAIL_KEY ?>" id="<?= EMAIL_KEY ?>">
+            <input type="text" class="form-control" name="<?= EMAIL_KEY ?>" id="<?= EMAIL_KEY ?>">
         </div>
-        <div class="text-field">
+        <div>
             Headline<br>
-            <input type="text" name="<?= HEADLINE_KEY ?>" id="<?= HEADLINE_KEY ?>">
+            <input type="text" class="form-control" name="<?= HEADLINE_KEY ?>" id="<?= HEADLINE_KEY ?>">
         </div>
-        <div class="text-field">
+        <div>
             Summary<br>
-            <textarea name="<?= SUMM_KEY ?>" rows="10" cols="60" id="<?= SUMM_KEY ?>"></textarea>
+            <textarea class="form-control" name="<?= SUMM_KEY ?>" rows="10" cols="60" id="<?= SUMM_KEY ?>"></textarea>
         </div>
-        <input type="button" id="addEdu" value="New Education">
+        <input type="button" id="addEdu" value="New Education" class="btn btn-outline-primary">
         <div id="educations"></div>
-        <input type="button" id="addPos" value="New Position">
+        <input type="button" id="addPos" value="New Position" class="btn btn-outline-primary">
         <div id="positions"></div>
-        <input type="submit" name="<?= ADD_KEY ?>" value="Add" onclick="return validateProfileFields();">
-        <input type="submit" name="<?= CANCEL_KEY ?>" value="Cancel">
+        <input type="submit" class="btn btn-outline-success" name="<?= ADD_KEY ?>" value="Add" onclick="return validateProfileFields();">
+        <input type="submit" class="btn btn-outline-danger" name="<?= CANCEL_KEY ?>" value="Cancel">
     </form>
 </body>
 

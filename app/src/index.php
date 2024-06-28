@@ -84,7 +84,8 @@ function createLoggedInProfilesTable(array $profiles)
 </head>
 
 <body>
-    <h1>Portfoliify</h1>
+    <h1 class="display-1">Portfoliify</h1>
+    <div class="spacer"></div>
     <?php
     if (isset($_SESSION[SUCCESS_MSG_KEY])) {
         echo "<p style='color: green;'>" . $_SESSION[SUCCESS_MSG_KEY] . "</p>";
@@ -92,19 +93,31 @@ function createLoggedInProfilesTable(array $profiles)
     }
 
     if (isset($_SESSION[USER_ID_KEY])) { // User is signed in
+        echo (
+            '<h4>Your Created Portfolios</h4>
+            <div class="small-spacer"></div>'
+        );
         createLoggedInProfilesTable(getProfiles($db));
         echo (
-            '<div style="button-container">
-                <a href="add.php">Create New Profile</a>
-                <a href="logout.php">Logout</a>
+            '<div class="spacer"></div>
+            <div style="button-container">
+                <a href="add.php" class="btn btn-outline-success">Create New Profile</a>
+                <a href="logout.php" class="btn btn-outline-danger">Logout</a>
             </div>'
         );
     } else {
         echo (
+            '<h4>Create digital resumes with ease using Portfoliify\'s HTML CVs</h4>
+            <div class="spacer"></div>'
+        );
+        echo (
             '<div style="button-container">
-                <a href="login.php">Login</a>
-                <a href="login.php">Sign Up</a>
-            </div>'
+                <a href="login.php" class="btn btn-outline-primary">Login</a>
+                <a href="login.php" class="btn btn-outline-primary">Sign Up</a>
+            </div>
+            <div class="spacer"></div>
+            <h4>Explore User-Created Resumes</h4>
+            <div class="small-spacer"></div>'
         );
         createProfilesTable(getProfiles($db));
     }

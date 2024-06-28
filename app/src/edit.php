@@ -132,7 +132,7 @@ function loadSavedPositions($positions)
             "<div id='position$elementIdNum' class='position'>
             <p>
                 Year: <input type='text' name='year$elementIdNum' value='$savedYear'>
-                <input type='button' value='Remove Position' onclick=\"removePosition('position$elementIdNum')\">
+                <input type='button' value='Remove Position' onclick=\"removePosition('position$elementIdNum')\" class='btn btn-outline-primary'>
             </p>
             <textarea name='desc$elementIdNum' cols='60' rows='10'>$savedDesc</textarea>
             </div>"
@@ -150,7 +150,7 @@ function loadSavedEducations($educations)
             "<div id='education$elementIdNum' class='education'>
             <p>
                 Year: <input type='text' name='eduyear$elementIdNum' value='$savedYear'>
-                <input type='button' value='Remove Education' onclick=\"removeEducation('education$elementIdNum')\">
+                <input type='button' value='Remove Education' onclick=\"removeEducation('education$elementIdNum')\" class='btn btn-outline-primary'>
             </p>
             School: <input type='text' name='school$elementIdNum' class='school' value='$savedSchool'>
             </div>"
@@ -183,37 +183,37 @@ function loadSavedEducations($educations)
         unset($_SESSION[ERROR_MSG_KEY]);
     }
     ?>
-    <form method="post">
-        <div class="text-field">
+    <form method="post" class="form-group">
+        <div>
             First Name<br>
-            <input type="text" name="<?= FNAME_KEY ?>" value="<?= htmlentities($profile[PROFILE_FNAME_COLNAME]) ?>">
+            <input type="text" class="form-control" name="<?= FNAME_KEY ?>" value="<?= htmlentities($profile[PROFILE_FNAME_COLNAME]) ?>">
         </div>
-        <div class="text-field">
+        <div>
             Last Name<br>
-            <input type="text" name="<?= LNAME_KEY ?>" value="<?= htmlentities($profile[PROFILE_LNAME_COLNAME]) ?>">
+            <input type="text" class="form-control" name="<?= LNAME_KEY ?>" value="<?= htmlentities($profile[PROFILE_LNAME_COLNAME]) ?>">
         </div>
-        <div class="text-field">
+        <div>
             Email<br>
-            <input type="text" name="<?= EMAIL_KEY ?>" value="<?= htmlentities($profile[PROFILE_EMAIL_COLNAME]) ?>">
+            <input type="text" class="form-control" name="<?= EMAIL_KEY ?>" value="<?= htmlentities($profile[PROFILE_EMAIL_COLNAME]) ?>">
         </div>
-        <div class="text-field">
+        <div>
             Headline<br>
-            <input type="text" name="<?= HEADLINE_KEY ?>" value="<?= htmlentities($profile[PROFILE_HEADLINE_COLNAME]) ?>">
+            <input type="text" class="form-control" name="<?= HEADLINE_KEY ?>" value="<?= htmlentities($profile[PROFILE_HEADLINE_COLNAME]) ?>">
         </div>
-        <div class="text-field">
+        <div>
             Summary<br>
-            <textarea name="<?= SUMM_KEY ?>" rows="10" cols="60"><?= htmlentities($profile[PROFILE_SUMM_COLNAME]) ?></textarea>
+            <textarea class="form-control" name="<?= SUMM_KEY ?>" rows="10" cols="60"><?= htmlentities($profile[PROFILE_SUMM_COLNAME]) ?></textarea>
         </div>
-        <input type="button" id="addEdu" value="New Education">
+        <input type="button" id="addEdu" value="New Education" class="btn btn-outline-primary">
         <div id="educations">
             <?php loadSavedEducations(getEducations($db, $_GET[PROFILE_ID_KEY])) ?>
         </div>
-        <input type="button" id="addPos" value="New Position">
+        <input type="button" id="addPos" value="New Position" class="btn btn-outline-primary">
         <div id="positions">
             <?php loadSavedPositions(getPositions($db, $_GET[PROFILE_ID_KEY])) ?>
         </div>
-        <input type="submit" name="<?= EDIT_KEY ?>" value="Save">
-        <input type="submit" name="<?= CANCEL_KEY ?>" value="Cancel">
+        <input type="submit" class="btn btn-outline-success" name="<?= EDIT_KEY ?>" value="Save">
+        <input type="submit" class="btn btn-outline-danger" name="<?= CANCEL_KEY ?>" value="Cancel">
     </form>
 </body>
 
