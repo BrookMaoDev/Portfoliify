@@ -9,6 +9,8 @@ services:
       MARIADB_HOST: "db"
       MARIADB_USERNAME: "root"
       MARIADB_ROOT_PASSWORD: "password"
+    volumes:
+      - ./app/src:/var/www/html
     restart: always
   db:
     build: ./database

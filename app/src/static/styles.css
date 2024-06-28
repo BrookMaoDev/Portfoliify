@@ -2,8 +2,8 @@
 
 * {
     font-family: "Rubik";
+    font-weight: 300;
     margin: 0px;
-    text-align: center;
 }
 
 h1,
@@ -11,13 +11,21 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+a,
+button,
+input,
+.btn,
+.form-control,
+display-1 {
     margin: 0;
+    font-weight: 300;
 }
 
 html,
 body {
     width: 100vw;
+    height: auto;
 }
 
 body {
@@ -34,6 +42,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    overflow: unset;
 }
 
 th,
@@ -42,14 +51,28 @@ td {
     text-align: left;
 }
 
+th {
+    font-weight: bold;
+}
+
 .button-container {
-    display: inline;
+    display: block;
+    max-width: fit-content;
+    margin: auto;
 }
 
 .small-spacer {
-    height: 2vh;
+    height: 3vh;
 }
 
 .spacer {
-    height: 4vh;
+    height: 6vh;
+}
+
+.display-1 {
+    color: #484b6a;
+}
+
+.ui-autocomplete {
+    background-color: inherit;
 }

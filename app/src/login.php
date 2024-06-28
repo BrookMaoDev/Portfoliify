@@ -81,7 +81,9 @@ function validateLoginInfoFormat()
 </head>
 
 <body>
+    <div class="spacer"></div>
     <h1>Please Log In</h1>
+    <div class="small-spacer"></div>
     <?php
     if (isset($_SESSION[ERROR_MSG_KEY])) { // User bypassed browser side data validation but failed on the server side
         echo '<p style="color: red;">' . $_SESSION[ERROR_MSG_KEY] . '</p>';
@@ -93,13 +95,18 @@ function validateLoginInfoFormat()
             Email<br>
             <input type="text" class="form-control" name="<?= EMAIL_KEY ?>" id="email">
         </div>
+        <div class="small-spacer"></div>
         <div>
             Password<br>
             <input type="password" class="form-control" name="<?= PSWD_KEY ?>" id="pswd">
         </div>
-        <input type="submit" class="btn btn-outline-success" value="Log In" name="<?= LOGIN_KEY ?>" onclick="return validateLoginInfoFormat();">
-        <input type="submit" class="btn btn-outline-danger" value="Cancel" name="<?= CANCEL_KEY ?>">
+        <div class="small-spacer"></div>
+        <div class="button-container">
+            <input type="submit" class="btn btn-outline-success" value="Log In" name="<?= LOGIN_KEY ?>" onclick="return validateLoginInfoFormat();">
+            <input type="submit" class="btn btn-outline-danger" value="Cancel" name="<?= CANCEL_KEY ?>">
+        </div>
     </form>
+    <div class="spacer"></div>
 </body>
 
 </html>

@@ -39,6 +39,7 @@ addPosition = function (event) {
             <input type="button" value="Remove Position" onclick="removePosition('position${numPositions}')" class='btn btn-outline-primary'>
         </p>
         <textarea name="desc${numPositions}" cols="60" rows="10"></textarea>
+        <div class="small-spacer"></div>
         </div>`
     );
 };
@@ -53,6 +54,7 @@ addEducation = function (event) {
             <input type="button" value="Remove Education" onclick="removeEducation('education${numEducations}')" class='btn btn-outline-primary'>
         </p>
         School: <input type="text" name="school${numEducations}" class="${SCHOOL_CLASS}">
+        <div class="small-spacer"></div>
         </div>`
     );
     $(`.${SCHOOL_CLASS}`).autocomplete({

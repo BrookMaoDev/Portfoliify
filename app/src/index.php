@@ -84,6 +84,7 @@ function createLoggedInProfilesTable(array $profiles)
 </head>
 
 <body>
+    <div class="spacer"></div>
     <h1 class="display-1">Portfoliify</h1>
     <div class="spacer"></div>
     <?php
@@ -122,6 +123,7 @@ function createLoggedInProfilesTable(array $profiles)
         createProfilesTable(getProfiles($db));
     }
     ?>
+    <div class="spacer"></div>
 </body>
 
 </html>

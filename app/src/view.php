@@ -84,6 +84,7 @@ function createEducationsTable($educations)
 </head>
 
 <body>
+    <div class="spacer"></div>
     <h1>Profile Information</h1>
     <h4>First Name: <span class="unbolded"><?= htmlentities($profile[PROFILE_FNAME_COLNAME]) ?></span></h4>
     <h4>Last Name: <span class="unbolded"><?= htmlentities($profile[PROFILE_LNAME_COLNAME]) ?></span></h4>
@@ -96,6 +97,7 @@ function createEducationsTable($educations)
     <h4>Education:</h4>
     <?php createEducationsTable($educations); ?>
     <a href="index.php">Back</a>
+    <div class="spacer"></div>
 </body>
 
 </html>

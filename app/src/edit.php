@@ -176,7 +176,9 @@ function loadSavedEducations($educations)
 </head>
 
 <body>
+    <div class="spacer"></div>
     <h1>Editing Profile for <?= htmlentities($_SESSION[USER_NAME_KEY]) ?></h1>
+    <div class="small-spacer"></div>
     <?php
     if (isset($_SESSION[ERROR_MSG_KEY])) {
         echo "<p style='color: red;'>" . $_SESSION[ERROR_MSG_KEY] . "</p>";
@@ -188,33 +190,41 @@ function loadSavedEducations($educations)
             First Name<br>
             <input type="text" class="form-control" name="<?= FNAME_KEY ?>" value="<?= htmlentities($profile[PROFILE_FNAME_COLNAME]) ?>">
         </div>
+        <div class="small-spacer"></div>
         <div>
             Last Name<br>
             <input type="text" class="form-control" name="<?= LNAME_KEY ?>" value="<?= htmlentities($profile[PROFILE_LNAME_COLNAME]) ?>">
         </div>
+        <div class="small-spacer"></div>
         <div>
             Email<br>
             <input type="text" class="form-control" name="<?= EMAIL_KEY ?>" value="<?= htmlentities($profile[PROFILE_EMAIL_COLNAME]) ?>">
         </div>
+        <div class="small-spacer"></div>
         <div>
             Headline<br>
             <input type="text" class="form-control" name="<?= HEADLINE_KEY ?>" value="<?= htmlentities($profile[PROFILE_HEADLINE_COLNAME]) ?>">
         </div>
+        <div class="small-spacer"></div>
         <div>
             Summary<br>
             <textarea class="form-control" name="<?= SUMM_KEY ?>" rows="10" cols="60"><?= htmlentities($profile[PROFILE_SUMM_COLNAME]) ?></textarea>
         </div>
+        <div class="small-spacer"></div>
         <input type="button" id="addEdu" value="New Education" class="btn btn-outline-primary">
+        <div class="small-spacer"></div>
         <div id="educations">
             <?php loadSavedEducations(getEducations($db, $_GET[PROFILE_ID_KEY])) ?>
         </div>
         <input type="button" id="addPos" value="New Position" class="btn btn-outline-primary">
+        <div class="small-spacer"></div>
         <div id="positions">
             <?php loadSavedPositions(getPositions($db, $_GET[PROFILE_ID_KEY])) ?>
         </div>
         <input type="submit" class="btn btn-outline-success" name="<?= EDIT_KEY ?>" value="Save">
         <input type="submit" class="btn btn-outline-danger" name="<?= CANCEL_KEY ?>" value="Cancel">
     </form>
+    <div class="spacer"></div>
 </body>
 
 </html>
