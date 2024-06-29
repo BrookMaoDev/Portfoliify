@@ -30,14 +30,6 @@ body {
 
 body {
     min-height: 100vh;
-    background-image: linear-gradient(
-        to right top,
-        #ffffff,
-        #f9f8fb,
-        #f2f2f8,
-        #ebebf4,
-        #e4e5f1
-    );
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -71,8 +63,4 @@ th {
 
 .display-1 {
     color: #484b6a;
-}
-
-.ui-autocomplete {
-    background-color: inherit;
 }

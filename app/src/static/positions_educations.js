@@ -29,6 +29,10 @@ $(document).ready(function () {
     $(EDUCATIONS_ADD_BUTTON_ID).click(addEducation);
 });
 
+$(window).resize(function () {
+    $(".ui-autocomplete").css("display", "none");
+});
+
 addPosition = function (event) {
     event.preventDefault();
     numPositions++;
