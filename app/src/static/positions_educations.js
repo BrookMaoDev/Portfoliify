@@ -53,11 +53,17 @@ addEducation = function (event) {
     numEducations++;
     $(EDUCATIONS_DIV_CONTAINER_ID).append(
         `<div id="education${numEducations}" class="education">
-        <p>
-            Year: <input type="text" name="eduyear${numEducations}">
-            <input type="button" value="Remove Education" onclick="removeEducation('education${numEducations}')" class='btn btn-outline-primary'>
-        </p>
-        School: <input type="text" name="school${numEducations}" class="${SCHOOL_CLASS}">
+        <div>
+        Year<br>
+        <input type="text" name="eduyear${numEducations}">
+        </div>
+        <div>
+        School<br>
+        <input type="text" name="school${numEducations}" class="${SCHOOL_CLASS}">
+        </div>
+        <div>
+        <input type="button" value="Remove Education" onclick="removeEducation('education${numEducations}')" class='btn btn-outline-warning btn-sm'>
+        </div>
         <div class="small-spacer"></div>
         </div>`
     );

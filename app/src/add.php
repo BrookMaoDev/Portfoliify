@@ -135,7 +135,8 @@ function validateProfileFields()
     <div class="small-spacer"></div>
     <?php
     if (isset($_SESSION[ERROR_MSG_KEY])) {
-        echo "<p style='color: red;'>" . $_SESSION[ERROR_MSG_KEY] . "</p>\n";
+        echo "<p class='text-success'>" . $_SESSION[ERROR_MSG_KEY] . "</p>\n";
+        echo '<div class="small-spacer"></div>';
         unset($_SESSION[ERROR_MSG_KEY]);
     }
     ?>
@@ -168,9 +169,11 @@ function validateProfileFields()
         <input type="button" id="addEdu" value="New Education" class="btn btn-outline-primary">
         <div class="small-spacer"></div>
         <div id="educations"></div>
+        <div class="small-spacer"></div>
         <input type="button" id="addPos" value="New Position" class="btn btn-outline-primary">
         <div class="small-spacer"></div>
         <div id="positions"></div>
+        <div class="small-spacer"></div>
         <input type="submit" class="btn btn-outline-success" name="<?= ADD_KEY ?>" value="Add" onclick="return validateProfileFields();">
         <input type="submit" class="btn btn-outline-danger" name="<?= CANCEL_KEY ?>" value="Cancel">
     </form>

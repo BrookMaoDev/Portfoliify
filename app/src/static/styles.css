@@ -17,9 +17,23 @@ button,
 input,
 .btn,
 .form-control,
-display-1 {
+display-1,
+p {
     margin: 0;
     font-weight: 300;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a,
+button,
+.btn,
+display-1 {
+    text-align: center;
 }
 
 html,
@@ -63,4 +77,20 @@ th {
 
 .display-1 {
     color: #484b6a;
+}
+
+.table-hover {
+    max-width: 80vw;
+}
+
+.education {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-column-gap: 15px;
+}
+
+.education div {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
 }

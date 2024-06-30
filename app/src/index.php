@@ -86,10 +86,11 @@ function createLoggedInProfilesTable(array $profiles)
 <body>
     <div class="spacer"></div>
     <h1 class="display-1">Portfoliify</h1>
-    <div class="spacer"></div>
+    <div class="small-spacer"></div>
     <?php
     if (isset($_SESSION[SUCCESS_MSG_KEY])) {
-        echo "<p style='color: green;'>" . $_SESSION[SUCCESS_MSG_KEY] . "</p>";
+        echo "<p class='text-success'>" . $_SESSION[SUCCESS_MSG_KEY] . "</p>";
+        echo '<div class="small-spacer"></div>';
         unset($_SESSION[SUCCESS_MSG_KEY]);
     }
 

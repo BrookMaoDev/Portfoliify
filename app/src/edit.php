@@ -135,6 +135,7 @@ function loadSavedPositions($positions)
                 <input type='button' value='Remove Position' onclick=\"removePosition('position$elementIdNum')\" class='btn btn-outline-primary'>
             </p>
             <textarea name='desc$elementIdNum' cols='60' rows='10'>$savedDesc</textarea>
+            <div class='small-spacer'></div>
             </div>"
         );
     }
@@ -148,11 +149,18 @@ function loadSavedEducations($educations)
         $savedSchool = htmlentities($educations[$i][EDUCATION_INSTITUTION_ID_COLNAME]);
         echo (
             "<div id='education$elementIdNum' class='education'>
-            <p>
-                Year: <input type='text' name='eduyear$elementIdNum' value='$savedYear'>
-                <input type='button' value='Remove Education' onclick=\"removeEducation('education$elementIdNum')\" class='btn btn-outline-primary'>
-            </p>
-            School: <input type='text' name='school$elementIdNum' class='school' value='$savedSchool'>
+            <div>
+            Year<br>
+            <input type='text' name='eduyear$elementIdNum' value='$savedYear'>
+            </div>
+            <div>
+            School<br>
+            <input type='text' name='school$elementIdNum' class='school' value='$savedSchool'>
+            </div>
+            <div>
+            <input type='button' value='Remove Education' onclick=\"removeEducation('education$elementIdNum')\" class='btn btn-outline-warning btn-sm'>
+            </div>
+            <div class='small-spacer'></div>
             </div>"
         );
     }
@@ -170,6 +178,7 @@ function loadSavedEducations($educations)
     <link rel="stylesheet" href="./static/styles.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="./static/positions_educations.js"></script>
+    <script src="./static/validations.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
@@ -181,7 +190,8 @@ function loadSavedEducations($educations)
     <div class="small-spacer"></div>
     <?php
     if (isset($_SESSION[ERROR_MSG_KEY])) {
-        echo "<p style='color: red;'>" . $_SESSION[ERROR_MSG_KEY] . "</p>";
+        echo "<p class='text-danger'>" . $_SESSION[ERROR_MSG_KEY] . "</p>";
+        echo '<div class="small-spacer"></div>';
         unset($_SESSION[ERROR_MSG_KEY]);
     }
     ?>
@@ -216,12 +226,14 @@ function loadSavedEducations($educations)
         <div id="educations">
             <?php loadSavedEducations(getEducations($db, $_GET[PROFILE_ID_KEY])) ?>
         </div>
+        <div class="small-spacer"></div>
         <input type="button" id="addPos" value="New Position" class="btn btn-outline-primary">
         <div class="small-spacer"></div>
         <div id="positions">
             <?php loadSavedPositions(getPositions($db, $_GET[PROFILE_ID_KEY])) ?>
         </div>
-        <input type="submit" class="btn btn-outline-success" name="<?= EDIT_KEY ?>" value="Save">
+        <div class="small-spacer"></div>
+        <input type="submit" class="btn btn-outline-success" name="<?= EDIT_KEY ?>" value="Save" onclick="return validateProfileFields();">
         <input type="submit" class="btn btn-outline-danger" name="<?= CANCEL_KEY ?>" value="Cancel">
     </form>
     <div class="spacer"></div>

@@ -86,7 +86,8 @@ function validateLoginInfoFormat()
     <div class="small-spacer"></div>
     <?php
     if (isset($_SESSION[ERROR_MSG_KEY])) { // User bypassed browser side data validation but failed on the server side
-        echo '<p style="color: red;">' . $_SESSION[ERROR_MSG_KEY] . '</p>';
+        echo '<p class="text-danger">' . $_SESSION[ERROR_MSG_KEY] . '</p>';
+        echo '<div class="small-spacer"></div>';
         unset($_SESSION[ERROR_MSG_KEY]);
     }
     ?>
