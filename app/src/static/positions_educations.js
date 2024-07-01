@@ -38,11 +38,17 @@ addPosition = function (event) {
     numPositions++;
     $(POSITIONS_DIV_CONTAINER_ID).append(
         `<div id="position${numPositions}" class="position">
-        <p>
-            Year: <input type="text" name="year${numPositions}">
-            <input type="button" value="Remove Position" onclick="removePosition('position${numPositions}')" class='btn btn-outline-primary'>
-        </p>
-        <textarea name="desc${numPositions}" cols="60" rows="10"></textarea>
+        <div>
+        Year<br>
+        <input type="text" class="form-control" name="year${numPositions}">
+        </div>
+        <div>
+        Description<br>
+        <input type="text" class="form-control" name="desc${numPositions}">
+        </div>
+        <div>
+        <input type="button" value="Remove" onclick="removePosition('position${numPositions}')" class='btn btn-outline-warning'>
+        </div>
         <div class="small-spacer"></div>
         </div>`
     );
@@ -55,14 +61,14 @@ addEducation = function (event) {
         `<div id="education${numEducations}" class="education">
         <div>
         Year<br>
-        <input type="text" name="eduyear${numEducations}">
+        <input type="text" class="form-control" name="eduyear${numEducations}">
         </div>
         <div>
         School<br>
-        <input type="text" name="school${numEducations}" class="${SCHOOL_CLASS}">
+        <input type="text" class="form-control" name="school${numEducations}" class="${SCHOOL_CLASS}">
         </div>
         <div>
-        <input type="button" value="Remove Education" onclick="removeEducation('education${numEducations}')" class='btn btn-outline-warning btn-sm'>
+        <input type="button" value="Remove" onclick="removeEducation('education${numEducations}')" class='btn btn-outline-warning'>
         </div>
         <div class="small-spacer"></div>
         </div>`

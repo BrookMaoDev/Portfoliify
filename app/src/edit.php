@@ -130,11 +130,17 @@ function loadSavedPositions($positions)
         $savedDesc = htmlentities($positions[$i][POSITION_DESCRIPTION_COLNAME]);
         echo (
             "<div id='position$elementIdNum' class='position'>
-            <p>
-                Year: <input type='text' name='year$elementIdNum' value='$savedYear'>
-                <input type='button' value='Remove Position' onclick=\"removePosition('position$elementIdNum')\" class='btn btn-outline-primary'>
-            </p>
-            <textarea name='desc$elementIdNum' cols='60' rows='10'>$savedDesc</textarea>
+            <div>
+            Year<br>
+            <input type='text' class='form-control' name='year$elementIdNum' value='$savedYear'>
+            </div>
+            <div>
+            Description<br>
+            <input type='text' class='form-control' name='desc$elementIdNum' value='$savedDesc'>
+            </div>
+            <div>
+            <input type='button' value='Remove' onclick=\"removePosition('position$elementIdNum')\" class='btn btn-outline-warning'>
+            </div>
             <div class='small-spacer'></div>
             </div>"
         );
@@ -151,14 +157,14 @@ function loadSavedEducations($educations)
             "<div id='education$elementIdNum' class='education'>
             <div>
             Year<br>
-            <input type='text' name='eduyear$elementIdNum' value='$savedYear'>
+            <input type='text' class='form-control' name='eduyear$elementIdNum' value='$savedYear'>
             </div>
             <div>
             School<br>
-            <input type='text' name='school$elementIdNum' class='school' value='$savedSchool'>
+            <input type='text' class='form-control' name='school$elementIdNum' class='school' value='$savedSchool'>
             </div>
             <div>
-            <input type='button' value='Remove Education' onclick=\"removeEducation('education$elementIdNum')\" class='btn btn-outline-warning btn-sm'>
+            <input type='button' value='Remove' onclick=\"removeEducation('education$elementIdNum')\" class='btn btn-outline-warning'>
             </div>
             <div class='small-spacer'></div>
             </div>"

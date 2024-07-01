@@ -85,18 +85,20 @@ function createEducationsTable($educations)
 
 <body>
     <div class="spacer"></div>
-    <h1>Profile Information</h1>
-    <h4>First Name: <span class="unbolded"><?= htmlentities($profile[PROFILE_FNAME_COLNAME]) ?></span></h4>
-    <h4>Last Name: <span class="unbolded"><?= htmlentities($profile[PROFILE_LNAME_COLNAME]) ?></span></h4>
-    <h4>Email: <span class="unbolded"><?= htmlentities($profile[PROFILE_EMAIL_COLNAME]) ?></span></h4>
-    <h4>Headline: <span class="unbolded"><?= htmlentities($profile[PROFILE_HEADLINE_COLNAME]) ?></span></h4>
-    <h4>Summary:</h4>
+    <h1><?= htmlentities($profile[PROFILE_FNAME_COLNAME]) . " " . $profile[PROFILE_LNAME_COLNAME] ?></h1>
+    <p style="text-align: center;"><?= htmlentities($profile[PROFILE_EMAIL_COLNAME]) ?></p>
+    <div class="small-spacer"></div>
+    <h2><?= htmlentities($profile[PROFILE_HEADLINE_COLNAME]) ?></h2>
+    <div class="small-spacer"></div>
     <p><?= htmlentities($profile[PROFILE_SUMM_COLNAME]) ?></p>
-    <h4>Positions:</h4>
+    <div class="small-spacer"></div>
+    <h2 class="mb-2">Positions</h2>
     <?php createPositionsTable($positions); ?>
-    <h4>Education:</h4>
+    <div class="small-spacer"></div>
+    <h2 class="mb-2">Education</h2>
     <?php createEducationsTable($educations); ?>
-    <a href="index.php">Back</a>
+    <div class="spacer"></div>
+    <a href="index.php" class="btn btn-outline-primary">Back</a>
     <div class="spacer"></div>
 </body>
 

@@ -48,9 +48,8 @@ if (isset($_POST[DELETE_KEY])) {
 
 <body>
     <div class="spacer"></div>
-    <h1>Deleteing Profile</h1>
-    <h4>First Name: <span class="unbolded"><?= htmlentities($profile[PROFILE_FNAME_COLNAME]) ?></span></h4>
-    <h4>Last Name: <span class="unbolded"><?= htmlentities($profile[PROFILE_LNAME_COLNAME]) ?></span></h4>
+    <h1>Are you sure you want to delete this profile for <?= htmlentities($profile[PROFILE_FNAME_COLNAME] . " " . $profile[PROFILE_LNAME_COLNAME]) ?>?</h1>
+    <div class="spacer"></div>
     <form method="post">
         <input type="submit" class="btn btn-outline-warning" name="<?= DELETE_KEY ?>" value="Delete">
         <input type="submit" class="btn btn-outline-danger" name="<?= CANCEL_KEY ?>" value="Cancel">
