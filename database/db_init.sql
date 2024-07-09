@@ -16,9 +16,9 @@ CREATE TABLE `users` (
 
 CREATE TABLE `institution` (
     `institution_id` INT NOT NULL AUTO_INCREMENT,
-    `NAME` VARCHAR(128) DEFAULT NULL,
+    `name` VARCHAR(128) DEFAULT NULL,
     PRIMARY KEY (`institution_id`),
-    UNIQUE (`NAME`)
+    UNIQUE (`name`)
 ) ENGINE = InnoDB;
 
 CREATE TABLE `profile` (
@@ -47,13 +47,13 @@ CREATE TABLE `education` (
     `profile_id` INT NOT NULL,
     `institution_id` INT NOT NULL,
     `rank` INT DEFAULT NULL,
-    `YEAR` INT DEFAULT NULL,
+    `year` INT DEFAULT NULL,
     FOREIGN KEY (`profile_id`) REFERENCES `profile` (`profile_id`) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (`institution_id`) REFERENCES `institution` (`institution_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB;
 
 INSERT INTO
-    `institution` (`NAME`)
+    `institution` (`name`)
 VALUES ('University of Toronto'),
     (
         'University of British Columbia'

@@ -1,33 +1,31 @@
 <?php
 
 /**
- * Description: A page with an email address and password to get the user to log in.
+ * Description: A page to log in with an email address and password.
  * Author: Brook Mao
  * Created: December 30, 2023
  */
 
-require_once "constants.php";
-require_once "pdo.php";
+require_once "db_connection.php";
 require_once "db_queries.php";
-require_once "process_superglobals.php";
+require_once "session_helpers.php";
 
-const MISSING_FIELD_MSG = "All fields are required";
-const BAD_EMAIL_MSG = "Email address must contain @";
-const INCORRECT_PSWD_MSG = "The email address or password is incorrect";
-
-// $_POST keys
-const LOGIN_KEY = "login";
-const CANCEL_KEY = "cancel";
+// Error messages
+const MISSING_FIELD_MSG = "All fields are required.";
+const BAD_EMAIL_MSG = "Email address must contain '@'.";
+const INCORRECT_PSWD_MSG = "The email address or password is incorrect.";
 
 // $_POST and $_SESSION keys
 const EMAIL_KEY = "email";
 const PSWD_KEY = "pass";
+const LOGIN_KEY = "login";
 
 session_start();
 
+// Check if the user hit the cancel button
 checkUserHitCancel();
 
-// User pressed login and data successfully validated on browser side
+// User pressed login and data successfully validated on the browser side
 if (isset($_POST[LOGIN_KEY])) {
     validateLoginInfoFormat(); // Server side validation. If valid, below code runs.
     $_SESSION[EMAIL_KEY] = $_POST[EMAIL_KEY];
@@ -36,24 +34,33 @@ if (isset($_POST[LOGIN_KEY])) {
     exit;
 }
 
-// User pressed login and data successfully validated on server side
+// User pressed login and data successfully validated on the server side
 if (isset($_SESSION[EMAIL_KEY]) && isset($_SESSION[PSWD_KEY])) {
     $user_info = getUsers($_SESSION[EMAIL_KEY], $_SESSION[PSWD_KEY], $db);
+
     if ($user_info === false) { // User does not exist
         unset($_SESSION[EMAIL_KEY]);
         unset($_SESSION[PSWD_KEY]);
+
         $_SESSION[ERROR_MSG_KEY] = INCORRECT_PSWD_MSG;
         header("Location: " . basename(__FILE__));
         exit;
     }
+
     unset($_SESSION[EMAIL_KEY]);
     unset($_SESSION[PSWD_KEY]);
+
     $_SESSION[USER_ID_KEY] = $user_info[USER_ID_COLNAME];
     $_SESSION[USER_NAME_KEY] = $user_info[USER_NAME_COLNAME];
+
     header("Location: index.php");
     exit;
 }
 
+/**
+ * Validates the login information format.
+ * Redirects back to the login page with an error message if validation fails.
+ */
 function validateLoginInfoFormat()
 {
     $email = $_POST[EMAIL_KEY];
@@ -71,18 +78,25 @@ function validateLoginInfoFormat()
 }
 ?>
 
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <title>Brook Mao's Resume Registry App</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfoliify</title>
+
+    <!-- CSS Imports -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="./static/styles.css">
-    <script src="./static/validations.js"></script>
+
+    <!-- JS Import for client-side validation -->
+    <script src="./static/validation.js"></script>
 </head>
 
 <body>
     <div class="spacer"></div>
-    <h1>Please Log In</h1>
+    <h1>Login</h1>
     <div class="small-spacer"></div>
     <?php
     if (isset($_SESSION[ERROR_MSG_KEY])) { // User bypassed browser side data validation but failed on the server side
@@ -101,7 +115,7 @@ function validateLoginInfoFormat()
             Password<br>
             <input type="password" class="form-control" name="<?= PSWD_KEY ?>" id="pswd">
         </div>
-        <div class="small-spacer"></div>
+        <div class="spacer"></div>
         <div class="button-container">
             <input type="submit" class="btn btn-outline-success" value="Log In" name="<?= LOGIN_KEY ?>" onclick="return validateLoginInfoFormat();">
             <input type="submit" class="btn btn-outline-danger" value="Cancel" name="<?= CANCEL_KEY ?>">

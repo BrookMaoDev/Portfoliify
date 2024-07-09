@@ -6,30 +6,35 @@
  * Created: December 30, 2023
  */
 
-require_once "pdo.php";
-require_once "constants.php";
+require_once "db_connection.php";
 require_once "db_queries.php";
-require_once "process_superglobals.php";
+require_once "session_helpers.php";
 
-const SUCCESS_MSG = "Profile deleted";
+const SUCCESS_MSG = "Profile deleted successfully.";
 
 // $_POST keys
 const DELETE_KEY = "delete";
-const CANCEL_KEY = "cancel";
 
 session_start();
 
+// Check if the user is logged in and if the profile is accessible
 checkLoggedIn();
 checkUserHitCancel();
 checkProfileGet();
 
+// Fetch the profile from the database
 $profile = requireProfile($db, (int)$_GET[PROFILE_ID_KEY]);
+
+// Check if the logged-in user owns the profile
 checkIfUserOwnsProfile($profile);
 
-// User is set on deleting this profile
+// If the user confirms the deletion
 if (isset($_POST[DELETE_KEY])) {
-    removeResume($db, $_GET[PROFILE_ID_KEY]);
+    // Remove the profile from the database
+    removeResume($db, (int)$_GET[PROFILE_ID_KEY]);
+    // Set success message
     $_SESSION[SUCCESS_MSG_KEY] = SUCCESS_MSG;
+    // Redirect to the index page
     header("Location: index.php");
     exit;
 }
@@ -41,7 +46,9 @@ if (isset($_POST[DELETE_KEY])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brook Mao's Resume Registry App</title>
+    <title>Portfoliify</title>
+
+    <!-- CSS Imports -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="./static/styles.css">
 </head>

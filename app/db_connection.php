@@ -8,14 +8,18 @@
 
 require_once "constants.php";
 
+// Retrieve database connection details from environment variables
 $host = $_ENV["MARIADB_HOST"];
-$dbname = DB_NAME;
 $username = $_ENV["MARIADB_USERNAME"];
 $password = $_ENV["MARIADB_ROOT_PASSWORD"];
 
 try {
-    $db = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    // Establish a PDO connection to MySQL database
+    $db = new PDO("mysql:host=$host;dbname=" . DB_NAME, $username, $password);
+
+    // Set PDO attributes for error mode to throw exceptions
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    echo $e->getMessage();
+    // Handle database connection errors
+    echo "Database connection failed: " . $e->getMessage();
 }

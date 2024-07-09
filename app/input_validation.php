@@ -6,28 +6,36 @@
  * Created: January 18, 2024
  */
 
-const NOT_NUMERIC_MSG = "Year must be numeric";
+const NOT_NUMERIC_MSG = "Year must be numeric.";
 
 /**
- * Returns a 2D array of all positions if all inputs are valid, an error message otherwise.
+ * Validates all position inputs.
+ * Returns a 2D array of all positions if valid, or an error message otherwise.
  */
 function validatePositions(): string|array
 {
     $allPositions = [];
     $posNum = 1; // Lowest position number possible
+
+    // Loop through all position inputs
     while (isset($_POST["year" . $posNum]) && isset($_POST["desc" . $posNum])) {
         $pos = validatePosition($_POST["year" . $posNum], $_POST["desc" . $posNum]);
-        if (gettype($pos) === "string") {
-            return $pos; // Since it is a string, it is an error message.
+
+        // Return error message if validation fails
+        if (is_string($pos)) {
+            return $pos;
         }
-        array_push($allPositions, $pos);
+
+        $allPositions[] = $pos;
         $posNum++;
     }
+
     return $allPositions;
 }
 
 /**
- * Returns an array of the position if $year and $desc are valid, an error message otherwise.
+ * Validates a single position input.
+ * Returns an array of the position if valid, or an error message otherwise.
  */
 function validatePosition(string $year, string $desc): string|array
 {
@@ -42,25 +50,35 @@ function validatePosition(string $year, string $desc): string|array
     return [$year, $desc];
 }
 
+/**
+ * Validates all education inputs.
+ * Returns a 2D array of all educations if valid, or an error message otherwise.
+ */
 function validateEducations(): string|array
 {
     $allEducations = [];
-    $eduNum = 1;
+    $eduNum = 1; // Lowest education number possible
 
+    // Loop through all education inputs
     while (isset($_POST["eduyear" . $eduNum]) && isset($_POST["school" . $eduNum])) {
         $edu = validateEducation($_POST["eduyear" . $eduNum], $_POST["school" . $eduNum]);
 
-        if (gettype($edu) === "string") {
+        // Return error message if validation fails
+        if (is_string($edu)) {
             return $edu;
         }
 
-        array_push($allEducations, $edu);
+        $allEducations[] = $edu;
         $eduNum++;
     }
 
     return $allEducations;
 }
 
+/**
+ * Validates a single education input.
+ * Returns an array of the education if valid, or an error message otherwise.
+ */
 function validateEducation(string $year, string $school): string|array
 {
     if (strlen($year) === 0 || strlen($school) === 0) {

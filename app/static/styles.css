@@ -1,22 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
 
-* {
-    font-family: "Quicksand";
-    font-weight: 300;
-}
-
-*:not(html, body) {
-    max-width: 80vw;
-    font-weight: 300;
-}
-
 body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    overflow: unset;
+}
+
+*:not(html, body) {
+    max-width: 80vw;
+    font-family: "Quicksand";
+    font-weight: 300;
 }
 
 th,
@@ -29,18 +24,18 @@ th {
     font-weight: bold;
 }
 
-.button-container {
-    display: block;
-    max-width: fit-content;
-    margin: auto;
-}
-
 .small-spacer {
     height: 3vh;
 }
 
 .spacer {
     height: 6vh;
+}
+
+.button-container {
+    display: block;
+    max-width: fit-content;
+    margin: auto;
 }
 
 .display-1 {
@@ -51,10 +46,6 @@ th {
     );
     background-clip: text;
     -webkit-text-fill-color: transparent;
-}
-
-.table-hover {
-    max-width: 80vw;
 }
 
 .education,
@@ -69,9 +60,4 @@ th {
     display: flex;
     flex-direction: column;
     justify-content: end;
-}
-
-.btn {
-    font-weight: 300;
-    text-align: center;
 }

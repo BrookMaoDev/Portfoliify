@@ -6,7 +6,7 @@
  * Created: December 30, 2023
  */
 
-// Data validation
+// Security
 const SALT = "XyZzy12*_";
 const HASH_METHOD = "md5";
 
@@ -44,20 +44,23 @@ const POSITION_DESCRIPTION_COLNAME = "description";
 
 // Columns for INSTITUTION_TABLE
 const INSTITUTION_ID_COLNAME = "institution_id";
-const INSTITUTION_NAME_COLNAME = "NAME";
+const INSTITUTION_NAME_COLNAME = "name";
 
 // Columns for EDUCATION_TABLE
 const EDUCATION_PROFILE_ID_COLNAME = "profile_id";
 const EDUCATION_INSTITUTION_ID_COLNAME = "institution_id";
 const EDUCATION_RANK_COLNAME = "rank";
-const EDUCATION_YEAR_COLNAME = "YEAR";
+const EDUCATION_YEAR_COLNAME = "year";
+
+// $_GET keys
+const PROFILE_ID_KEY = "profile_id";
+const LOOKAHEAD_TERM_KEY = "term";
+
+// $_POST keys
+const CANCEL_KEY = "cancel";
 
 // $_SESSION keys
 const USER_ID_KEY = "user_id";
 const USER_NAME_KEY = "name";
 const ERROR_MSG_KEY = "error_msg";
 const SUCCESS_MSG_KEY = "success_msg";
-
-// $_GET keys
-const PROFILE_ID_KEY = "profile_id";
-const LOOKAHEAD_TERM_KEY = "term";

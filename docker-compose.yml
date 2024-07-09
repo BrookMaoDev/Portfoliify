@@ -2,25 +2,26 @@ version: '3.8'
 
 services:
   app:
-    build: ./app
+    build: ./app # Builds the PHP-Apache image from the Dockerfile in the ./app directory
     ports:
-      - "80:80"
+      - "80:80" # Maps port 80 on the host to port 80 on the container
     environment:
-      MARIADB_HOST: "db"
-      MARIADB_USERNAME: "root"
-      MARIADB_ROOT_PASSWORD: "password"
+      MARIADB_HOST: "db" # Sets the MariaDB host to the 'db' service
+      MARIADB_USERNAME: "root" # Sets the MariaDB username to 'root'
+      MARIADB_ROOT_PASSWORD: "password" # Sets the MariaDB root password
     volumes:
-      - ./app/src:/var/www/html
-    restart: always
+      - ./app:/var/www/html # Mounts the ./app directory on the host to /var/www/html in the container
+    restart: always # Always restart the container if it stops
+
   db:
-    build: ./database
+    build: ./database # Builds the MariaDB image from the Dockerfile in the ./database directory
     ports:
-      - "3306:3306"
+      - "3306:3306" # Maps port 3306 on the host to port 3306 on the container
     environment:
-      MARIADB_ROOT_PASSWORD: "password"
+      MARIADB_ROOT_PASSWORD: "password" # Sets the MariaDB root password
     volumes:
-      - db_data:/var/lib/mysql
-    restart: always
+      - db_data:/var/lib/mysql # Mounts the db_data volume to /var/lib/mysql in the container
+    restart: always # Always restart the container if it stops
 
 volumes:
-  db_data: {}
+  db_data: {} # Declares the db_data volume for persistent storage
