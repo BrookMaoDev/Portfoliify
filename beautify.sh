@@ -16,4 +16,5 @@ fi
 echo "Starting formatting with Prettier..."
 # Use npx to run Prettier for PHP files along with JS, CSS, YAML, JSON, and Markdown files
 npx prettier --write "**/*.{php,js,css,yml,json,md,prettierrc}"
+npx prettier --ignore-path .prettierignore "**/docker-compose.prod.yml" --write
 echo "Formatting complete."
