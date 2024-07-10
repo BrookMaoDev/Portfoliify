@@ -41,11 +41,11 @@ function addPosition(event) {
     $(POSITIONS_DIV_CONTAINER_ID).append(
         `<div id="position${numPositions}" class="position">
             <div>
-                Year<br>
+                <label for="year${numPositions}">Year</label>
                 <input type="text" class="form-control" name="year${numPositions}">
             </div>
             <div>
-                Description<br>
+                <label for="desc${numPositions}">Description</label>
                 <input type="text" class="form-control" name="desc${numPositions}">
             </div>
             <div>
@@ -66,11 +66,11 @@ function addEducation(event) {
     $(EDUCATIONS_DIV_CONTAINER_ID).append(
         `<div id="education${numEducations}" class="education">
             <div>
-                Year<br>
+                <label for="eduyear${numEducations}">Year</label>
                 <input type="text" class="form-control" name="eduyear${numEducations}">
             </div>
             <div>
-                School<br>
+                <label for="school${numEducations}">School</label>
                 <input type="text" class="form-control ${SCHOOL_CLASS}" name="school${numEducations}">
             </div>
             <div>

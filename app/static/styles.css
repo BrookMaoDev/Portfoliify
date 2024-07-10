@@ -12,6 +12,7 @@ body {
     max-width: 80vw;
     font-family: "Quicksand";
     font-weight: 300;
+    text-align: center;
 }
 
 th,
@@ -22,6 +23,20 @@ td {
 
 th {
     font-weight: bold;
+}
+
+footer {
+    position: absolute;
+    bottom: 0px;
+    padding-bottom: 10px;
+    font-size: 0.8em;
+}
+
+form,
+form input,
+form div,
+form label {
+    text-align: left;
 }
 
 .small-spacer {
@@ -35,7 +50,8 @@ th {
 .button-container {
     display: block;
     max-width: fit-content;
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .display-1 {
@@ -60,4 +76,10 @@ th {
     display: flex;
     flex-direction: column;
     justify-content: end;
+}
+
+@media only screen and (max-width: 600px) {
+    .display-1 {
+        font-size: 12vw;
+    }
 }

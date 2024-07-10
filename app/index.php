@@ -112,7 +112,7 @@ function createLoggedInProfilesTable(array $profiles)
     <div class="small-spacer"></div>
     <?php
     if (isset($_SESSION[SUCCESS_MSG_KEY])) {
-        echo "<p class='text-success'>" . htmlentities($_SESSION[SUCCESS_MSG_KEY]) . "</p>";
+        echo "<div class='alert alert-success' role='alert'>" . $_SESSION[SUCCESS_MSG_KEY] . "</div>";
         echo '<div class="small-spacer"></div>';
         unset($_SESSION[SUCCESS_MSG_KEY]);
     }
@@ -148,6 +148,7 @@ function createLoggedInProfilesTable(array $profiles)
     }
     ?>
     <div class="spacer"></div>
+    <footer>Explore the source code on <a href="https://github.com/BrookMaoDev/Portfoliify">GitHub</a></footer>
 </body>
 
 </html>

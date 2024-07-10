@@ -132,7 +132,7 @@ if (isset($_SESSION[FNAME_KEY])) {
     <div class="small-spacer"></div>
 
     <?php if (isset($_SESSION[ERROR_MSG_KEY])) : ?>
-        <p class='text-danger'><?= htmlentities($_SESSION[ERROR_MSG_KEY]) ?></p>
+        <div class="alert alert-danger" role="alert"><?= htmlentities($_SESSION[ERROR_MSG_KEY]) ?></div>
         <div class="small-spacer"></div>
         <?php unset($_SESSION[ERROR_MSG_KEY]); ?>
     <?php endif; ?>
@@ -140,35 +140,35 @@ if (isset($_SESSION[FNAME_KEY])) {
     <form method="post">
         <!-- First Name Field -->
         <div>
-            First Name<br>
+            <label for="<?= FNAME_KEY ?>">First Name</label>
             <input type="text" class="form-control" name="<?= FNAME_KEY ?>" id="<?= FNAME_KEY ?>">
         </div>
         <div class="small-spacer"></div>
 
         <!-- Last Name Field -->
         <div>
-            Last Name<br>
+            <label for="<?= LNAME_KEY ?>">Last Name</label>
             <input type="text" class="form-control" name="<?= LNAME_KEY ?>" id="<?= LNAME_KEY ?>">
         </div>
         <div class="small-spacer"></div>
 
         <!-- Email Field -->
         <div>
-            Email<br>
+            <label for="<?= EMAIL_KEY ?>">Email</label>
             <input type="text" class="form-control" name="<?= EMAIL_KEY ?>" id="<?= EMAIL_KEY ?>">
         </div>
         <div class="small-spacer"></div>
 
         <!-- Headline Field -->
         <div>
-            Headline<br>
+            <label for="<?= HEADLINE_KEY ?>">Headline</label>
             <input type="text" class="form-control" name="<?= HEADLINE_KEY ?>" id="<?= HEADLINE_KEY ?>">
         </div>
         <div class="small-spacer"></div>
 
         <!-- Summary Field -->
         <div>
-            Summary<br>
+            <label for="<?= SUMM_KEY ?>">Summary</label>
             <textarea class="form-control" name="<?= SUMM_KEY ?>" rows="10" cols="60" id="<?= SUMM_KEY ?>"></textarea>
         </div>
         <div class="small-spacer"></div>

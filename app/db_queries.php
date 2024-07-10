@@ -298,3 +298,41 @@ function getUsers(string $email, string $pswd, PDO $db): array|bool
     ));
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
+
+/**
+ * Retrieves a user from the database with the given email if they exist.
+ * 
+ * @param string $email The email of the user.
+ * @param PDO $db The PDO database connection.
+ * @return array|bool The user data as an associative array, or false if not found.
+ */
+function getUserByEmail(string $email, PDO $db): array|bool
+{
+    $stmt = $db->prepare("SELECT " . USER_ID_COLNAME . ", " . USER_NAME_COLNAME . " FROM " . USERS_TABLE . " WHERE " . USER_EMAIL_COLNAME . " = :email");
+    $stmt->execute(array(":email" => $email));
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+/**
+ * Adds a new user to the database.
+ * 
+ * @param string $email The email of the user.
+ * @param string $pswd The password of the user.
+ * @param string $name The name of the user.
+ * @param PDO $db The PDO database connection.
+ */
+function insertUser(string $email, string $pswd, string $name, PDO $db)
+{
+    $hashed_pswd = hash(HASH_METHOD, SALT . $pswd);
+
+    $stmt = $db->prepare("INSERT INTO " . USERS_TABLE . " ("
+        . USER_EMAIL_COLNAME . ", "
+        . USER_PSWD_COLNAME . ", "
+        . USER_NAME_COLNAME . ") VALUES (:email, :password, :name)");
+
+    $stmt->execute(array(
+        ":email" => $email,
+        ":password" => $hashed_pswd,
+        ":name" => $name,
+    ));
+}

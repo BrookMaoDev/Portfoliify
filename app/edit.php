@@ -128,11 +128,11 @@ function loadSavedPositions($positions)
         echo (
             "<div id='position$elementIdNum' class='position'>
                 <div>
-                    Year<br>
+                    <label for='year$elementIdNum'>Year</label>
                     <input type='text' class='form-control' name='year$elementIdNum' value='$savedYear'>
                 </div>
                 <div>
-                    Description<br>
+                    <label for='desc$elementIdNum'>Description</label>
                     <input type='text' class='form-control' name='desc$elementIdNum' value='$savedDesc'>
                 </div>
                 <div>
@@ -157,11 +157,11 @@ function loadSavedEducations($educations)
         echo (
             "<div id='education$elementIdNum' class='education'>
                 <div>
-                    Year<br>
+                    <label for='eduyear$elementIdNum'>Year</label>
                     <input type='text' class='form-control' name='eduyear$elementIdNum' value='$savedYear'>
                 </div>
                 <div>
-                    School<br>
+                    <label for='school$elementIdNum'>School</label>
                     <input type='text' class='form-control school' name='school$elementIdNum' value='$savedSchool'>
                 </div>
                 <div>
@@ -201,7 +201,7 @@ function loadSavedEducations($educations)
     <div class="small-spacer"></div>
 
     <?php if (isset($_SESSION[ERROR_MSG_KEY])) : ?>
-        <p class='text-danger'><?= htmlentities($_SESSION[ERROR_MSG_KEY]) ?></p>
+        <div class="alert alert-danger" role="alert"><?= htmlentities($_SESSION[ERROR_MSG_KEY]) ?></div>
         <div class="small-spacer"></div>
         <?php unset($_SESSION[ERROR_MSG_KEY]); ?>
     <?php endif; ?>
@@ -209,35 +209,35 @@ function loadSavedEducations($educations)
     <form method="post">
         <!-- First Name Field -->
         <div>
-            First Name<br>
+            <label for="<?= FNAME_KEY ?>">First Name</label>
             <input type="text" class="form-control" name="<?= FNAME_KEY ?>" value="<?= htmlentities($profile[PROFILE_FNAME_COLNAME]) ?>">
         </div>
         <div class="small-spacer"></div>
 
         <!-- Last Name Field -->
         <div>
-            Last Name<br>
+            <label for="<?= LNAME_KEY ?>">Last Name</label>
             <input type="text" class="form-control" name="<?= LNAME_KEY ?>" value="<?= htmlentities($profile[PROFILE_LNAME_COLNAME]) ?>">
         </div>
         <div class="small-spacer"></div>
 
         <!-- Email Field -->
         <div>
-            Email<br>
+            <label for="<?= EMAIL_KEY ?>">Email</label>
             <input type="text" class="form-control" name="<?= EMAIL_KEY ?>" value="<?= htmlentities($profile[PROFILE_EMAIL_COLNAME]) ?>">
         </div>
         <div class="small-spacer"></div>
 
         <!-- Headline Field -->
         <div>
-            Headline<br>
+            <label for="<?= HEADLINE_KEY ?>">Headline</label>
             <input type="text" class="form-control" name="<?= HEADLINE_KEY ?>" value="<?= htmlentities($profile[PROFILE_HEADLINE_COLNAME]) ?>">
         </div>
         <div class="small-spacer"></div>
 
         <!-- Summary Field -->
         <div>
-            Summary<br>
+            <label for="<?= SUMM_KEY ?>">Summary</label>
             <textarea class="form-control" name="<?= SUMM_KEY ?>" rows="10" cols="60"><?= htmlentities($profile[PROFILE_SUMM_COLNAME]) ?></textarea>
         </div>
         <div class="small-spacer"></div>
