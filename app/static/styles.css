@@ -35,7 +35,8 @@ footer {
 form,
 form input,
 form div,
-form label {
+form label,
+form textarea {
   text-align: left;
 }
 
