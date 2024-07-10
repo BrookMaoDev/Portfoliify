@@ -31,20 +31,21 @@ if (isset($_POST[LOGIN_KEY])) {
     $_SESSION[EMAIL_KEY] = $_POST[EMAIL_KEY];
     $_SESSION[PSWD_KEY] = $_POST[PSWD_KEY];
     header("Location: " . basename(__FILE__));
-    exit;
+    exit();
 }
 
 // User pressed login and data successfully validated on the server side
 if (isset($_SESSION[EMAIL_KEY]) && isset($_SESSION[PSWD_KEY])) {
     $user_info = getUsers($_SESSION[EMAIL_KEY], $_SESSION[PSWD_KEY], $db);
 
-    if ($user_info === false) { // User does not exist
+    if ($user_info === false) {
+        // User does not exist
         unset($_SESSION[EMAIL_KEY]);
         unset($_SESSION[PSWD_KEY]);
 
         $_SESSION[ERROR_MSG_KEY] = INCORRECT_PSWD_MSG;
         header("Location: " . basename(__FILE__));
-        exit;
+        exit();
     }
 
     unset($_SESSION[EMAIL_KEY]);
@@ -54,7 +55,7 @@ if (isset($_SESSION[EMAIL_KEY]) && isset($_SESSION[PSWD_KEY])) {
     $_SESSION[USER_NAME_KEY] = $user_info[USER_NAME_COLNAME];
 
     header("Location: index.php");
-    exit;
+    exit();
 }
 
 /**
@@ -69,11 +70,11 @@ function validateLoginInfoFormat()
     if (strlen($email) === 0 || strlen($pswd) === 0) {
         $_SESSION[ERROR_MSG_KEY] = MISSING_FIELD_MSG;
         header("Location: " . basename(__FILE__));
-        exit;
+        exit();
     } elseif (!str_contains($email, "@")) {
         $_SESSION[ERROR_MSG_KEY] = BAD_EMAIL_MSG;
         header("Location: " . basename(__FILE__));
-        exit;
+        exit();
     }
 }
 ?>
@@ -99,17 +100,21 @@ function validateLoginInfoFormat()
     <h1>Login</h1>
     <div class="small-spacer"></div>
 
-    <?php
-    if (isset($_SESSION[ERROR_MSG_KEY])) { // User bypassed browser side data validation but failed on the server side
-        echo "<div class='alert alert-danger' role='alert'>" . $_SESSION[ERROR_MSG_KEY] . "</div>";
+    <?php if (isset($_SESSION[ERROR_MSG_KEY])) {
+        // User bypassed browser side data validation but failed on the server side
+        echo "<div class='alert alert-danger' role='alert'>" .
+            $_SESSION[ERROR_MSG_KEY] .
+            "</div>";
         echo '<div class="small-spacer"></div>';
         unset($_SESSION[ERROR_MSG_KEY]);
-    } elseif (isset($_SESSION[SUCCESS_MSG_KEY])) { // User successfully signed up
-        echo "<div class='alert alert-success' role='alert'>" . $_SESSION[SUCCESS_MSG_KEY] . "</div>";
+    } elseif (isset($_SESSION[SUCCESS_MSG_KEY])) {
+        // User successfully signed up
+        echo "<div class='alert alert-success' role='alert'>" .
+            $_SESSION[SUCCESS_MSG_KEY] .
+            "</div>";
         echo '<div class="small-spacer"></div>';
         unset($_SESSION[SUCCESS_MSG_KEY]);
-    }
-    ?>
+    } ?>
 
     <form method="post" class="form-group">
         <div>

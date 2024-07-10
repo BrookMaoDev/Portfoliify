@@ -47,14 +47,30 @@ if (isset($_POST[EDIT_KEY])) {
     $positionsArray = validatePositions();
     $educationsArray = validateEducations();
 
-    if (gettype($positionsArray) === "string") { // Error message
+    if (gettype($positionsArray) === "string") {
+        // Error message
         $_SESSION[ERROR_MSG_KEY] = $positionsArray;
-        header("Location: " . basename(__FILE__) . "?" . PROFILE_ID_KEY . "=" . $_GET[PROFILE_ID_KEY]);
-        exit;
-    } elseif (gettype($educationsArray) === "string") { // Error message
+        header(
+            "Location: " .
+                basename(__FILE__) .
+                "?" .
+                PROFILE_ID_KEY .
+                "=" .
+                $_GET[PROFILE_ID_KEY]
+        );
+        exit();
+    } elseif (gettype($educationsArray) === "string") {
+        // Error message
         $_SESSION[ERROR_MSG_KEY] = $educationsArray;
-        header("Location: " . basename(__FILE__) . "?" . PROFILE_ID_KEY . "=" . $_GET[PROFILE_ID_KEY]);
-        exit;
+        header(
+            "Location: " .
+                basename(__FILE__) .
+                "?" .
+                PROFILE_ID_KEY .
+                "=" .
+                $_GET[PROFILE_ID_KEY]
+        );
+        exit();
     }
 
     $_SESSION[FNAME_KEY] = $_POST[FNAME_KEY];
@@ -65,8 +81,15 @@ if (isset($_POST[EDIT_KEY])) {
     $_SESSION[POSITIONS_ARRAY_KEY] = $positionsArray;
     $_SESSION[EDUCATIONS_ARRAY_KEY] = $educationsArray;
 
-    header("Location: " . basename(__FILE__) . "?" . PROFILE_ID_KEY . "=" . $_GET[PROFILE_ID_KEY]);
-    exit;
+    header(
+        "Location: " .
+            basename(__FILE__) .
+            "?" .
+            PROFILE_ID_KEY .
+            "=" .
+            $_GET[PROFILE_ID_KEY]
+    );
+    exit();
 }
 
 // User's new entry inputs are valid and are now in the session
@@ -84,11 +107,19 @@ if (isset($_SESSION[FNAME_KEY])) {
     );
 
     // Clear session variables after successful update
-    unset($_SESSION[FNAME_KEY], $_SESSION[LNAME_KEY], $_SESSION[EMAIL_KEY], $_SESSION[HEADLINE_KEY], $_SESSION[SUMM_KEY], $_SESSION[POSITIONS_ARRAY_KEY], $_SESSION[EDUCATIONS_ARRAY_KEY]);
+    unset(
+        $_SESSION[FNAME_KEY],
+        $_SESSION[LNAME_KEY],
+        $_SESSION[EMAIL_KEY],
+        $_SESSION[HEADLINE_KEY],
+        $_SESSION[SUMM_KEY],
+        $_SESSION[POSITIONS_ARRAY_KEY],
+        $_SESSION[EDUCATIONS_ARRAY_KEY]
+    );
 
     $_SESSION[SUCCESS_MSG_KEY] = SUCCESS_MSG;
     header("Location: index.php");
-    exit;
+    exit();
 }
 
 /**
@@ -104,14 +135,34 @@ function validateProfileFields()
     $headline = $_POST[HEADLINE_KEY];
     $summ = $_POST[SUMM_KEY];
 
-    if (strlen($fname) === 0 || strlen($lname) === 0 || strlen($email) === 0 || strlen($headline) === 0 || strlen($summ) === 0) {
+    if (
+        strlen($fname) === 0 ||
+        strlen($lname) === 0 ||
+        strlen($email) === 0 ||
+        strlen($headline) === 0 ||
+        strlen($summ) === 0
+    ) {
         $_SESSION[ERROR_MSG_KEY] = MISSING_FIELD_MSG;
-        header("Location: " . basename(__FILE__) . "?" . PROFILE_ID_KEY . "=" . $_GET[PROFILE_ID_KEY]);
-        exit;
+        header(
+            "Location: " .
+                basename(__FILE__) .
+                "?" .
+                PROFILE_ID_KEY .
+                "=" .
+                $_GET[PROFILE_ID_KEY]
+        );
+        exit();
     } elseif (!str_contains($email, "@")) {
         $_SESSION[ERROR_MSG_KEY] = BAD_EMAIL_MSG;
-        header("Location: " . basename(__FILE__) . "?" . PROFILE_ID_KEY . "=" . $_GET[PROFILE_ID_KEY]);
-        exit;
+        header(
+            "Location: " .
+                basename(__FILE__) .
+                "?" .
+                PROFILE_ID_KEY .
+                "=" .
+                $_GET[PROFILE_ID_KEY]
+        );
+        exit();
     }
 }
 
@@ -125,8 +176,7 @@ function loadSavedPositions($positions)
         $elementIdNum = $i + 1; // Element IDs start at 1.
         $savedYear = htmlentities($positions[$i][POSITION_YEAR_COLNAME]);
         $savedDesc = htmlentities($positions[$i][POSITION_DESCRIPTION_COLNAME]);
-        echo (
-            "<div id='position$elementIdNum' class='position'>
+        echo "<div id='position$elementIdNum' class='position'>
                 <div>
                     <label for='year$elementIdNum'>Year</label>
                     <input type='text' class='form-control' name='year$elementIdNum' value='$savedYear'>
@@ -139,8 +189,7 @@ function loadSavedPositions($positions)
                     <input type='button' value='Remove' onclick=\"removePosition('position$elementIdNum')\" class='btn btn-outline-warning'>
                 </div>
                 <div class='small-spacer'></div>
-            </div>"
-        );
+            </div>";
     }
 }
 
@@ -153,9 +202,10 @@ function loadSavedEducations($educations)
     for ($i = 0; $i < sizeof($educations); $i++) {
         $elementIdNum = $i + 1;
         $savedYear = htmlentities($educations[$i][EDUCATION_YEAR_COLNAME]);
-        $savedSchool = htmlentities($educations[$i][EDUCATION_INSTITUTION_ID_COLNAME]);
-        echo (
-            "<div id='education$elementIdNum' class='education'>
+        $savedSchool = htmlentities(
+            $educations[$i][EDUCATION_INSTITUTION_ID_COLNAME]
+        );
+        echo "<div id='education$elementIdNum' class='education'>
                 <div>
                     <label for='eduyear$elementIdNum'>Year</label>
                     <input type='text' class='form-control' name='eduyear$elementIdNum' value='$savedYear'>
@@ -168,8 +218,7 @@ function loadSavedEducations($educations)
                     <input type='button' value='Remove' onclick=\"removeEducation('education$elementIdNum')\" class='btn btn-outline-warning'>
                 </div>
                 <div class='small-spacer'></div>
-            </div>"
-        );
+            </div>";
     }
 }
 ?>
@@ -200,8 +249,10 @@ function loadSavedEducations($educations)
     <h1>Editing Profile for <?= htmlentities($_SESSION[USER_NAME_KEY]) ?></h1>
     <div class="small-spacer"></div>
 
-    <?php if (isset($_SESSION[ERROR_MSG_KEY])) : ?>
-        <div class="alert alert-danger" role="alert"><?= htmlentities($_SESSION[ERROR_MSG_KEY]) ?></div>
+    <?php if (isset($_SESSION[ERROR_MSG_KEY])): ?>
+        <div class="alert alert-danger" role="alert"><?= htmlentities(
+            $_SESSION[ERROR_MSG_KEY]
+        ) ?></div>
         <div class="small-spacer"></div>
         <?php unset($_SESSION[ERROR_MSG_KEY]); ?>
     <?php endif; ?>
@@ -210,35 +261,45 @@ function loadSavedEducations($educations)
         <!-- First Name Field -->
         <div>
             <label for="<?= FNAME_KEY ?>">First Name</label>
-            <input type="text" class="form-control" name="<?= FNAME_KEY ?>" value="<?= htmlentities($profile[PROFILE_FNAME_COLNAME]) ?>">
+            <input type="text" class="form-control" name="<?= FNAME_KEY ?>" value="<?= htmlentities(
+    $profile[PROFILE_FNAME_COLNAME]
+) ?>">
         </div>
         <div class="small-spacer"></div>
 
         <!-- Last Name Field -->
         <div>
             <label for="<?= LNAME_KEY ?>">Last Name</label>
-            <input type="text" class="form-control" name="<?= LNAME_KEY ?>" value="<?= htmlentities($profile[PROFILE_LNAME_COLNAME]) ?>">
+            <input type="text" class="form-control" name="<?= LNAME_KEY ?>" value="<?= htmlentities(
+    $profile[PROFILE_LNAME_COLNAME]
+) ?>">
         </div>
         <div class="small-spacer"></div>
 
         <!-- Email Field -->
         <div>
             <label for="<?= EMAIL_KEY ?>">Email</label>
-            <input type="text" class="form-control" name="<?= EMAIL_KEY ?>" value="<?= htmlentities($profile[PROFILE_EMAIL_COLNAME]) ?>">
+            <input type="text" class="form-control" name="<?= EMAIL_KEY ?>" value="<?= htmlentities(
+    $profile[PROFILE_EMAIL_COLNAME]
+) ?>">
         </div>
         <div class="small-spacer"></div>
 
         <!-- Headline Field -->
         <div>
             <label for="<?= HEADLINE_KEY ?>">Headline</label>
-            <input type="text" class="form-control" name="<?= HEADLINE_KEY ?>" value="<?= htmlentities($profile[PROFILE_HEADLINE_COLNAME]) ?>">
+            <input type="text" class="form-control" name="<?= HEADLINE_KEY ?>" value="<?= htmlentities(
+    $profile[PROFILE_HEADLINE_COLNAME]
+) ?>">
         </div>
         <div class="small-spacer"></div>
 
         <!-- Summary Field -->
         <div>
             <label for="<?= SUMM_KEY ?>">Summary</label>
-            <textarea class="form-control" name="<?= SUMM_KEY ?>" rows="10" cols="60"><?= htmlentities($profile[PROFILE_SUMM_COLNAME]) ?></textarea>
+            <textarea class="form-control" name="<?= SUMM_KEY ?>" rows="10" cols="60"><?= htmlentities(
+    $profile[PROFILE_SUMM_COLNAME]
+) ?></textarea>
         </div>
         <div class="small-spacer"></div>
 
@@ -246,7 +307,9 @@ function loadSavedEducations($educations)
         <input type="button" id="addEdu" value="New Education" class="btn btn-outline-primary">
         <div class="small-spacer"></div>
         <div id="educations">
-            <?php loadSavedEducations(getEducations($db, $_GET[PROFILE_ID_KEY])) ?>
+            <?php loadSavedEducations(
+                getEducations($db, $_GET[PROFILE_ID_KEY])
+            ); ?>
         </div>
         <div class="small-spacer"></div>
 
@@ -254,7 +317,9 @@ function loadSavedEducations($educations)
         <input type="button" id="addPos" value="New Position" class="btn btn-outline-primary">
         <div class="small-spacer"></div>
         <div id="positions">
-            <?php loadSavedPositions(getPositions($db, $_GET[PROFILE_ID_KEY])) ?>
+            <?php loadSavedPositions(
+                getPositions($db, $_GET[PROFILE_ID_KEY])
+            ); ?>
         </div>
         <div class="small-spacer"></div>
 

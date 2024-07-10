@@ -19,7 +19,10 @@ function validatePositions(): string|array
 
     // Loop through all position inputs
     while (isset($_POST["year" . $posNum]) && isset($_POST["desc" . $posNum])) {
-        $pos = validatePosition($_POST["year" . $posNum], $_POST["desc" . $posNum]);
+        $pos = validatePosition(
+            $_POST["year" . $posNum],
+            $_POST["desc" . $posNum]
+        );
 
         // Return error message if validation fails
         if (is_string($pos)) {
@@ -60,8 +63,14 @@ function validateEducations(): string|array
     $eduNum = 1; // Lowest education number possible
 
     // Loop through all education inputs
-    while (isset($_POST["eduyear" . $eduNum]) && isset($_POST["school" . $eduNum])) {
-        $edu = validateEducation($_POST["eduyear" . $eduNum], $_POST["school" . $eduNum]);
+    while (
+        isset($_POST["eduyear" . $eduNum]) &&
+        isset($_POST["school" . $eduNum])
+    ) {
+        $edu = validateEducation(
+            $_POST["eduyear" . $eduNum],
+            $_POST["school" . $eduNum]
+        );
 
         // Return error message if validation fails
         if (is_string($edu)) {

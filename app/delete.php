@@ -23,7 +23,7 @@ checkUserHitCancel();
 checkProfileGet();
 
 // Fetch the profile from the database
-$profile = requireProfile($db, (int)$_GET[PROFILE_ID_KEY]);
+$profile = requireProfile($db, (int) $_GET[PROFILE_ID_KEY]);
 
 // Check if the logged-in user owns the profile
 checkIfUserOwnsProfile($profile);
@@ -31,12 +31,12 @@ checkIfUserOwnsProfile($profile);
 // If the user confirms the deletion
 if (isset($_POST[DELETE_KEY])) {
     // Remove the profile from the database
-    removeResume($db, (int)$_GET[PROFILE_ID_KEY]);
+    removeResume($db, (int) $_GET[PROFILE_ID_KEY]);
     // Set success message
     $_SESSION[SUCCESS_MSG_KEY] = SUCCESS_MSG;
     // Redirect to the index page
     header("Location: index.php");
-    exit;
+    exit();
 }
 ?>
 
@@ -55,7 +55,9 @@ if (isset($_POST[DELETE_KEY])) {
 
 <body>
     <div class="spacer"></div>
-    <h1>Are you sure you want to delete this profile for <?= htmlentities($profile[PROFILE_FNAME_COLNAME] . " " . $profile[PROFILE_LNAME_COLNAME]) ?>?</h1>
+    <h1>Are you sure you want to delete this profile for <?= htmlentities(
+        $profile[PROFILE_FNAME_COLNAME] . " " . $profile[PROFILE_LNAME_COLNAME]
+    ) ?>?</h1>
     <div class="spacer"></div>
     <form method="post">
         <input type="submit" class="btn btn-outline-warning" name="<?= DELETE_KEY ?>" value="Delete">

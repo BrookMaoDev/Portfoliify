@@ -20,12 +20,17 @@ session_start();
  */
 function createProfileRow(array $profile)
 {
-    $name = htmlentities($profile[PROFILE_FNAME_COLNAME]) . " " . htmlentities($profile[PROFILE_LNAME_COLNAME]);
+    $name =
+        htmlentities($profile[PROFILE_FNAME_COLNAME]) .
+        " " .
+        htmlentities($profile[PROFILE_LNAME_COLNAME]);
     $headline = htmlentities($profile[PROFILE_HEADLINE_COLNAME]);
-    echo (
-        "<td><a href='view.php?" . PROFILE_ID_KEY . "=" . htmlentities($profile[PROFILE_ID_COLNAME]) . "'>$name</a></td>
-        <td>$headline</td>"
-    );
+    echo "<td><a href='view.php?" .
+        PROFILE_ID_KEY .
+        "=" .
+        htmlentities($profile[PROFILE_ID_COLNAME]) .
+        "'>$name</a></td>
+        <td>$headline</td>";
 }
 
 /**
@@ -38,10 +43,16 @@ function createLoggedInProfileRow(array $profile)
     if ($_SESSION[USER_ID_KEY] == $profile[PROFILE_USER_ID_COLNAME]) {
         // The user owns this profile.
         createProfileRow($profile);
-        echo (
-            "<td><a href='edit.php?" . PROFILE_ID_KEY . "=" . htmlentities($profile[PROFILE_ID_COLNAME]) . "'>Edit</a></td>
-            <td><a href='delete.php?" . PROFILE_ID_KEY . "=" . htmlentities($profile[PROFILE_ID_COLNAME]) . "'>Delete</a></td>"
-        );
+        echo "<td><a href='edit.php?" .
+            PROFILE_ID_KEY .
+            "=" .
+            htmlentities($profile[PROFILE_ID_COLNAME]) .
+            "'>Edit</a></td>
+            <td><a href='delete.php?" .
+            PROFILE_ID_KEY .
+            "=" .
+            htmlentities($profile[PROFILE_ID_COLNAME]) .
+            "'>Delete</a></td>";
     }
 }
 
@@ -52,13 +63,11 @@ function createLoggedInProfileRow(array $profile)
  */
 function createProfilesTable(array $profiles)
 {
-    echo (
-        "<table class='table-hover'>
+    echo "<table class='table-hover'>
             <tr>
                 <th>Name</th>
                 <th>Headline</th>
-            </tr>"
-    );
+            </tr>";
 
     foreach ($profiles as $profile) {
         echo "<tr>";
@@ -76,14 +85,12 @@ function createProfilesTable(array $profiles)
  */
 function createLoggedInProfilesTable(array $profiles)
 {
-    echo (
-        "<table class='table-hover'>
+    echo "<table class='table-hover'>
             <tr>
                 <th>Name</th>
                 <th>Headline</th>
                 <th colspan='2'>Actions</th>
-            </tr>"
-    );
+            </tr>";
 
     foreach ($profiles as $profile) {
         echo "<tr>";
@@ -112,38 +119,33 @@ function createLoggedInProfilesTable(array $profiles)
     <div class="small-spacer"></div>
     <?php
     if (isset($_SESSION[SUCCESS_MSG_KEY])) {
-        echo "<div class='alert alert-success' role='alert'>" . $_SESSION[SUCCESS_MSG_KEY] . "</div>";
+        echo "<div class='alert alert-success' role='alert'>" .
+            $_SESSION[SUCCESS_MSG_KEY] .
+            "</div>";
         echo '<div class="small-spacer"></div>';
         unset($_SESSION[SUCCESS_MSG_KEY]);
     }
 
-    if (isset($_SESSION[USER_ID_KEY])) { // User is signed in
-        echo (
-            '<h4>Your Created Portfolios</h4>
-            <div class="small-spacer"></div>'
-        );
+    if (isset($_SESSION[USER_ID_KEY])) {
+        // User is signed in
+        echo '<h4>Your Created Portfolios</h4>
+            <div class="small-spacer"></div>';
         createLoggedInProfilesTable(getProfiles($db));
-        echo (
-            '<div class="spacer"></div>
+        echo '<div class="spacer"></div>
             <div class="button-container">
                 <a href="add.php" class="btn btn-outline-success">Create New Profile</a>
                 <a href="logout.php" class="btn btn-outline-danger">Logout</a>
-            </div>'
-        );
+            </div>';
     } else {
-        echo (
-            '<h4>A profile database that allows users to create, read, update, and delete profiles easily.</h4>
-            <div class="spacer"></div>'
-        );
-        echo (
-            '<div class="button-container">
+        echo '<h4>A profile database that allows users to create, read, update, and delete profiles easily.</h4>
+            <div class="spacer"></div>';
+        echo '<div class="button-container">
                 <a href="login.php" class="btn btn-outline-primary">Login</a>
                 <a href="signup.php" class="btn btn-outline-primary">Sign Up</a>
             </div>
             <div class="spacer"></div>
             <h4>Explore User-Created Resumes</h4>
-            <div class="small-spacer"></div>'
-        );
+            <div class="small-spacer"></div>';
         createProfilesTable(getProfiles($db));
     }
     ?>

@@ -32,7 +32,7 @@ function checkUserHitCancel()
 {
     if (isset($_POST[CANCEL_KEY])) {
         header("Location: index.php");
-        exit;
+        exit();
     }
 }
 
@@ -50,7 +50,7 @@ function checkProfileGet()
 /**
  * Retrieves a profile with the given profile ID from the database.
  * Terminates the script with an error message if the profile does not exist.
- * 
+ *
  * @param PDO $db The PDO database connection.
  * @param int $profile_id The ID of the profile to retrieve.
  * @return array|bool The profile data as an associative array, or false if not found.
@@ -68,7 +68,7 @@ function requireProfile(PDO $db, int $profile_id): array|bool
 /**
  * Checks if the user owns the profile by comparing the profile's user ID with the user ID in the session.
  * Terminates the script with an error message if the user does not own the profile.
- * 
+ *
  * @param array $profile The profile data.
  */
 function checkIfUserOwnsProfile(array $profile)

@@ -31,22 +31,26 @@ checkUserHitCancel();
  */
 function validateSignupInfoFormat()
 {
-    if (empty($_POST[NAME_KEY]) || empty($_POST[EMAIL_KEY]) || empty($_POST[PSWD_KEY])) {
+    if (
+        empty($_POST[NAME_KEY]) ||
+        empty($_POST[EMAIL_KEY]) ||
+        empty($_POST[PSWD_KEY])
+    ) {
         $_SESSION[ERROR_MSG_KEY] = MISSING_FIELD_MSG;
         header("Location: " . basename(__FILE__));
-        exit;
+        exit();
     }
 
-    if (strpos($_POST[EMAIL_KEY], '@') === false) {
+    if (strpos($_POST[EMAIL_KEY], "@") === false) {
         $_SESSION[ERROR_MSG_KEY] = BAD_EMAIL_MSG;
         header("Location: " . basename(__FILE__));
-        exit;
+        exit();
     }
 
-    if (getUserByEmail($_POST[EMAIL_KEY], $GLOBALS['db']) !== false) {
+    if (getUserByEmail($_POST[EMAIL_KEY], $GLOBALS["db"]) !== false) {
         $_SESSION[ERROR_MSG_KEY] = EMAIL_EXISTS_MSG;
         header("Location: " . basename(__FILE__));
-        exit;
+        exit();
     }
 }
 
@@ -55,7 +59,7 @@ if (isset($_POST[SIGNUP_KEY])) {
     insertUser($_POST[EMAIL_KEY], $_POST[PSWD_KEY], $_POST[NAME_KEY], $db);
     $_SESSION[SUCCESS_MSG_KEY] = SUCCESS_MSG;
     header("Location: login.php");
-    exit;
+    exit();
 }
 ?>
 
@@ -77,13 +81,13 @@ if (isset($_POST[SIGNUP_KEY])) {
     <h1>Sign Up</h1>
     <div class="small-spacer"></div>
 
-    <?php
-    if (isset($_SESSION[ERROR_MSG_KEY])) {
-        echo "<div class='alert alert-danger' role='alert'>" . $_SESSION[ERROR_MSG_KEY] . "</div>";
+    <?php if (isset($_SESSION[ERROR_MSG_KEY])) {
+        echo "<div class='alert alert-danger' role='alert'>" .
+            $_SESSION[ERROR_MSG_KEY] .
+            "</div>";
         echo "<div class='small-spacer'></div>";
         unset($_SESSION[ERROR_MSG_KEY]);
-    }
-    ?>
+    } ?>
 
     <form method="post" class="form-group">
         <label for="name">Name</label>

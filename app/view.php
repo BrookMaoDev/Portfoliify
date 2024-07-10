@@ -14,13 +14,13 @@ require_once "session_helpers.php";
 checkProfileGet();
 
 // Fetch profile, positions, and educations from the database
-$profile = requireProfile($db, (int)$_GET[PROFILE_ID_KEY]);
-$positions = getPositions($db, (int)$_GET[PROFILE_ID_KEY]);
-$educations = getEducations($db, (int)$_GET[PROFILE_ID_KEY]);
+$profile = requireProfile($db, (int) $_GET[PROFILE_ID_KEY]);
+$positions = getPositions($db, (int) $_GET[PROFILE_ID_KEY]);
+$educations = getEducations($db, (int) $_GET[PROFILE_ID_KEY]);
 
 /**
  * Creates a table row for a position.
- * 
+ *
  * @param array $position Associative array representing a position.
  */
 function createPositionRow($position)
@@ -33,7 +33,7 @@ function createPositionRow($position)
 
 /**
  * Creates a table for positions.
- * 
+ *
  * @param array $positions Array of associative arrays representing positions.
  */
 function createPositionsTable($positions)
@@ -53,7 +53,7 @@ function createPositionsTable($positions)
 
 /**
  * Creates a table row for an education.
- * 
+ *
  * @param array $education Associative array representing an education.
  */
 function createEducationRow($education)
@@ -66,7 +66,7 @@ function createEducationRow($education)
 
 /**
  * Creates a table for educations.
- * 
+ *
  * @param array $educations Array of associative arrays representing educations.
  */
 function createEducationsTable($educations)
@@ -100,8 +100,12 @@ function createEducationsTable($educations)
 
 <body>
     <div class="spacer"></div>
-    <h1><?= htmlentities($profile[PROFILE_FNAME_COLNAME]) . " " . htmlentities($profile[PROFILE_LNAME_COLNAME]) ?></h1>
-    <p class="text-center"><?= htmlentities($profile[PROFILE_EMAIL_COLNAME]) ?></p>
+    <h1><?= htmlentities($profile[PROFILE_FNAME_COLNAME]) .
+        " " .
+        htmlentities($profile[PROFILE_LNAME_COLNAME]) ?></h1>
+    <p class="text-center"><?= htmlentities(
+        $profile[PROFILE_EMAIL_COLNAME]
+    ) ?></p>
     <div class="small-spacer"></div>
     <h2><?= htmlentities($profile[PROFILE_HEADLINE_COLNAME]) ?></h2>
     <div class="small-spacer"></div>

@@ -45,14 +45,20 @@ function validateProfileFields()
     $headline = $_POST[HEADLINE_KEY];
     $summ = $_POST[SUMM_KEY];
 
-    if (empty($fname) || empty($lname) || empty($email) || empty($headline) || empty($summ)) {
+    if (
+        empty($fname) ||
+        empty($lname) ||
+        empty($email) ||
+        empty($headline) ||
+        empty($summ)
+    ) {
         $_SESSION[ERROR_MSG_KEY] = MISSING_FIELD_MSG;
         header("Location: " . basename(__FILE__));
-        exit;
+        exit();
     } elseif (!str_contains($email, "@")) {
         $_SESSION[ERROR_MSG_KEY] = BAD_EMAIL_MSG;
         header("Location: " . basename(__FILE__));
-        exit;
+        exit();
     }
 }
 
@@ -62,14 +68,15 @@ if (isset($_POST[ADD_KEY])) {
     $positionsArray = validatePositions();
     $educationsArray = validateEducations();
 
-    if (is_string($positionsArray)) { // Then it's an error message.
+    if (is_string($positionsArray)) {
+        // Then it's an error message.
         $_SESSION[ERROR_MSG_KEY] = $positionsArray;
         header("Location: " . basename(__FILE__));
-        exit;
+        exit();
     } elseif (is_string($educationsArray)) {
         $_SESSION[ERROR_MSG_KEY] = $educationsArray;
         header("Location: " . basename(__FILE__));
-        exit;
+        exit();
     }
 
     $_SESSION[FNAME_KEY] = $_POST[FNAME_KEY];
@@ -80,7 +87,7 @@ if (isset($_POST[ADD_KEY])) {
     $_SESSION[POSITIONS_ARRAY_KEY] = $positionsArray;
     $_SESSION[EDUCATIONS_ARRAY_KEY] = $educationsArray;
     header("Location: " . basename(__FILE__));
-    exit;
+    exit();
 }
 
 // User's new entry inputs are valid and are now in the session
@@ -97,11 +104,19 @@ if (isset($_SESSION[FNAME_KEY])) {
     );
 
     // Unset session variables after inserting the resume
-    unset($_SESSION[FNAME_KEY], $_SESSION[LNAME_KEY], $_SESSION[EMAIL_KEY], $_SESSION[HEADLINE_KEY], $_SESSION[SUMM_KEY], $_SESSION[POSITIONS_ARRAY_KEY], $_SESSION[EDUCATIONS_ARRAY_KEY]);
+    unset(
+        $_SESSION[FNAME_KEY],
+        $_SESSION[LNAME_KEY],
+        $_SESSION[EMAIL_KEY],
+        $_SESSION[HEADLINE_KEY],
+        $_SESSION[SUMM_KEY],
+        $_SESSION[POSITIONS_ARRAY_KEY],
+        $_SESSION[EDUCATIONS_ARRAY_KEY]
+    );
 
     $_SESSION[SUCCESS_MSG_KEY] = SUCCESS_MSG;
     header("Location: index.php");
-    exit;
+    exit();
 }
 ?>
 
@@ -131,8 +146,10 @@ if (isset($_SESSION[FNAME_KEY])) {
     <h1>Adding Profile for <?= htmlentities($_SESSION[USER_NAME_KEY]) ?></h1>
     <div class="small-spacer"></div>
 
-    <?php if (isset($_SESSION[ERROR_MSG_KEY])) : ?>
-        <div class="alert alert-danger" role="alert"><?= htmlentities($_SESSION[ERROR_MSG_KEY]) ?></div>
+    <?php if (isset($_SESSION[ERROR_MSG_KEY])): ?>
+        <div class="alert alert-danger" role="alert"><?= htmlentities(
+            $_SESSION[ERROR_MSG_KEY]
+        ) ?></div>
         <div class="small-spacer"></div>
         <?php unset($_SESSION[ERROR_MSG_KEY]); ?>
     <?php endif; ?>

@@ -23,18 +23,18 @@ const SUMM_ID = "summary";
  * @returns {boolean} True if inputs are valid, false otherwise.
  */
 function validateLoginInfoFormat() {
-    const email = document.getElementById(EMAIL_ID).value;
-    const pswd = document.getElementById(PSWD_ID).value;
+  const email = document.getElementById(EMAIL_ID).value;
+  const pswd = document.getElementById(PSWD_ID).value;
 
-    if (!email || !pswd) {
-        alert(MISSING_FIELD_MSG);
-        return false;
-    } else if (!email.includes("@")) {
-        alert(BAD_EMAIL_MSG);
-        return false;
-    }
+  if (!email || !pswd) {
+    alert(MISSING_FIELD_MSG);
+    return false;
+  } else if (!email.includes("@")) {
+    alert(BAD_EMAIL_MSG);
+    return false;
+  }
 
-    return true;
+  return true;
 }
 
 /**
@@ -43,19 +43,19 @@ function validateLoginInfoFormat() {
  * @returns {boolean} True if inputs are valid, false otherwise.
  */
 function validateProfileFields() {
-    const fname = document.getElementById(FNAME_ID).value;
-    const lname = document.getElementById(LNAME_ID).value;
-    const email = document.getElementById(EMAIL_ID).value;
-    const headline = document.getElementById(HEADLINE_ID).value;
-    const summ = document.getElementById(SUMM_ID).value;
+  const fname = document.getElementById(FNAME_ID).value;
+  const lname = document.getElementById(LNAME_ID).value;
+  const email = document.getElementById(EMAIL_ID).value;
+  const headline = document.getElementById(HEADLINE_ID).value;
+  const summ = document.getElementById(SUMM_ID).value;
 
-    if (!fname || !lname || !email || !headline || !summ) {
-        alert(MISSING_FIELD_MSG);
-        return false;
-    } else if (!email.includes("@")) {
-        alert(BAD_EMAIL_MSG);
-        return false;
-    }
+  if (!fname || !lname || !email || !headline || !summ) {
+    alert(MISSING_FIELD_MSG);
+    return false;
+  } else if (!email.includes("@")) {
+    alert(BAD_EMAIL_MSG);
+    return false;
+  }
 
-    return true;
+  return true;
 }
