@@ -26,10 +26,13 @@ th {
 }
 
 footer {
-  position: absolute;
+  position: fixed;
   bottom: 0px;
+  padding-top: 10px;
   padding-bottom: 10px;
   font-size: 0.8em;
+  background-color: inherit;
+  width: 100%;
 }
 
 form,
