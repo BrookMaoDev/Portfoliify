@@ -6,11 +6,14 @@ services:
     ports:
       - "80:80" # Maps port 80 on the host to port 80 on the container
     environment:
+      DB_NAME: "res_profile" # Sets the database name to 'res_profile'
       MARIADB_HOST: "db" # Sets the MariaDB host to the 'db' service
       MARIADB_USERNAME: "root" # Sets the MariaDB username to 'root'
       MARIADB_ROOT_PASSWORD: "password" # Sets the MariaDB root password
     volumes:
       - ./app:/var/www/html # Mounts the ./app directory on the host to /var/www/html in the container
+    depends_on:
+      - db # Depends on the 'db' service to start first
     restart: always # Always restart the container if it stops
 
   db:

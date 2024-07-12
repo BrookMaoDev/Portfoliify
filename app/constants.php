@@ -10,9 +10,6 @@
 const SALT = "XyZzy12*_";
 const HASH_METHOD = "md5";
 
-// Database
-const DB_NAME = "res_profile";
-
 // Tables
 const USERS_TABLE = "users";
 const PROFILES_TABLE = "profile";
