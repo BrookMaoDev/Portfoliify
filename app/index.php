@@ -3,7 +3,7 @@
 /**
  * Description: Homepage for Portfoliify. Displays different content based on user login status.
  * If not logged in, the user is given links to login or sign up.
- * If logged in, the user sees links to add, delete, or edit any resumes they own.
+ * If logged in, the user sees links to add, delete, or edit any profiles they own.
  * Author: Brook Mao
  * Created: December 30, 2023
  */
@@ -128,7 +128,7 @@ function createLoggedInProfilesTable(array $profiles)
 
     if (isset($_SESSION[USER_ID_KEY])) {
         // User is signed in
-        echo '<h4>Your Created Portfolios</h4>
+        echo '<h4>Your Created Profiles</h4>
             <div class="small-spacer"></div>';
         createLoggedInProfilesTable(getProfiles($db));
         echo '<div class="spacer"></div>
@@ -144,7 +144,7 @@ function createLoggedInProfilesTable(array $profiles)
                 <a href="signup.php" class="btn btn-outline-primary">Sign Up</a>
             </div>
             <div class="spacer"></div>
-            <h4>Explore User-Created Resumes</h4>
+            <h4>Explore User-Created Profiles</h4>
             <div class="small-spacer"></div>';
         createProfilesTable(getProfiles($db));
     }
